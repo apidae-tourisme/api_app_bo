@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Creative Works</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Created at</th>
+      <th>Updated at</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Thumbnail</th>
+      <th>Url</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @creative_works.each do |creative_work| %>
+      <tr>
+        <td><%= creative_work.created_at %></td>
+        <td><%= creative_work.updated_at %></td>
+        <td><%= creative_work.name %></td>
+        <td><%= creative_work.description %></td>
+        <td><%= creative_work.thumbnail %></td>
+        <td><%= creative_work.url %></td>
+        <td><%= link_to 'Show', creative_work %></td>
+        <td><%= link_to 'Edit', edit_creative_work_path(creative_work) %></td>
+        <td><%= link_to 'Destroy', creative_work, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Creative work', new_creative_work_path %>

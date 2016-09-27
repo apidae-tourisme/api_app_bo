@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Created at:</strong>
+  <%= @organization.created_at %>
+</p>
+
+<p>
+  <strong>Updated at:</strong>
+  <%= @organization.updated_at %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @organization.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @organization.description %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @organization.address %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @organization.email %>
+</p>
+
+<p>
+  <strong>Telephone:</strong>
+  <%= @organization.telephone %>
+</p>
+
+<p>
+  <strong>Thumbnail:</strong>
+  <%= @organization.thumbnail %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @organization.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @organization.longitude %>
+</p>
+
+<%= link_to 'Edit', edit_organization_path(@organization) %> |
+<%= link_to 'Back', organizations_path %>

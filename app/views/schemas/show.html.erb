@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Created at:</strong>
+  <%= @schema.created_at %>
+</p>
+
+<p>
+  <strong>Updated at:</strong>
+  <%= @schema.updated_at %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @schema.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @schema.description %>
+</p>
+
+<p>
+  <strong>Thumbnail:</strong>
+  <%= @schema.thumbnail %>
+</p>
+
+<%= link_to 'Edit', edit_schema_path(@schema) %> |
+<%= link_to 'Back', schemas_path %>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Created at:</strong>
+  <%= @competence.created_at %>
+</p>
+
+<p>
+  <strong>Updated at:</strong>
+  <%= @competence.updated_at %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @competence.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @competence.description %>
+</p>
+
+<p>
+  <strong>Thumbnail:</strong>
+  <%= @competence.thumbnail %>
+</p>
+
+<%= link_to 'Edit', edit_competence_path(@competence) %> |
+<%= link_to 'Back', competences_path %>

@@ -7,9 +7,9 @@ class SpreadsheetImporter
     json_data = File.read(spreadsheet)
     parsed_data = JSON.parse(json_data, symbolize_names: false)
     seeds = parsed_data['feed']['entry']
-    # seeds.each do |s|
-    #   import_seed(s)
-    # end
+    seeds.each do |s|
+      import_seed(s)
+    end
 
     seeds.each do |s|
       import_links(s)

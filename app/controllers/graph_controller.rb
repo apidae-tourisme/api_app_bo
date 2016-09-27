@@ -17,4 +17,8 @@ class GraphController < ApplicationController
       end
     end
   end
+
+  def nodes
+    @nodes = Neo4j::Session.current.query.match(:n).return(:n).collect {|res| res.n}
+  end
 end

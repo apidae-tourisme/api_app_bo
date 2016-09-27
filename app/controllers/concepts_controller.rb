@@ -2,7 +2,7 @@ class ConceptsController < ApplicationController
   before_action :set_concept, only: [:show, :edit, :update, :destroy]
 
   def index
-    @concepts = Concept.all
+    @seeds = Concept.all
   end
 
   def show

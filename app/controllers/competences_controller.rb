@@ -2,7 +2,7 @@ class CompetencesController < ApplicationController
   before_action :set_competence, only: [:show, :edit, :update, :destroy]
 
   def index
-    @competences = Competence.all
+    @seeds = Competence.all
   end
 
   def show

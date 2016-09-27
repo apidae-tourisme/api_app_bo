@@ -2,7 +2,7 @@ class SchemasController < ApplicationController
   before_action :set_schema, only: [:show, :edit, :update, :destroy]
 
   def index
-    @schemas = Schema.all
+    @seeds = Schema.all
   end
 
   def show

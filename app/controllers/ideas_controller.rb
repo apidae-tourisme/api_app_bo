@@ -2,7 +2,7 @@ class IdeasController < ApplicationController
   before_action :set_idea, only: [:show, :edit, :update, :destroy]
 
   def index
-    @ideas = Idea.all
+    @seeds = Idea.all
   end
 
   def show

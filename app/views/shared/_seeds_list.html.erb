@@ -1,0 +1,31 @@
+<div class="page-header">
+  <div class="row">
+    <div class="col-sm-8"><h1><%= title %></h1></div>
+    <div class="col-sm-4 text-right">
+      <%= link_to fa_icon('plus'), url_for(action: :new), class: 'btn btn-lg btn-info' %>
+    </div>
+  </div>
+</div>
+<div>
+  <table class="table table-striped table-responsive">
+    <thead>
+      <tr>
+        <% cols.each do |col| %>
+          <th><%= t "seeds.properties.#{col}" %></th>
+        <% end %>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @seeds.each do |seed| %>
+      <tr>
+        <% cols.each do |col| %>
+        <td><%= seed.send(col) %></td>
+        <% end %>
+        <td><%= link_to fa_icon('edit'), send("edit_#{seed.class.to_s.underscore}_path", seed) %></td>
+        <td><%= link_to fa_icon('remove'), seed, method: :delete, data: { confirm: 'Supprimer cette graine ?' } %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

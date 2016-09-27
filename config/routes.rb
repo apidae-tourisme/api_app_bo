@@ -4,6 +4,7 @@ Rails.application.routes.draw do
         :constraints => {:method => 'OPTIONS'}, via: [:options]
 
   match 'graph/node/:id', to: 'graph#node', via: :get
+  match 'graph/nodes', to: 'graph#nodes', via: :get
 
   resources :events
   resources :tasks
@@ -17,5 +18,5 @@ Rails.application.routes.draw do
   resources :projects
   resources :organizations
 
-  root to: 'organizations#index'
+  root to: 'dashboard#index'
 end

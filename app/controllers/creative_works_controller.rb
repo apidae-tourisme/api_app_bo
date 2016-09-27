@@ -2,7 +2,7 @@ class CreativeWorksController < ApplicationController
   before_action :set_creative_work, only: [:show, :edit, :update, :destroy]
 
   def index
-    @creative_works = CreativeWork.all
+    @seeds = CreativeWork.all
   end
 
   def show

@@ -9,7 +9,7 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new
+    @seed = Task.new
   end
 
   def edit
@@ -51,7 +51,7 @@ class TasksController < ApplicationController
 
   private
     def set_task
-      @task = Task.find(params[:id])
+      @seed = Task.find(params[:id])
     end
 
     def task_params

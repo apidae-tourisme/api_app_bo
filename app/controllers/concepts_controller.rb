@@ -9,7 +9,7 @@ class ConceptsController < ApplicationController
   end
 
   def new
-    @concept = Concept.new
+    @seed = Concept.new
   end
 
   def edit
@@ -51,7 +51,7 @@ class ConceptsController < ApplicationController
 
   private
     def set_concept
-      @concept = Concept.find(params[:id])
+      @seed = Concept.find(params[:id])
     end
 
     def concept_params

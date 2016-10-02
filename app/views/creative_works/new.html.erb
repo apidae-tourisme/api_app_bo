@@ -1,5 +1,1 @@
-<h1>New Creative Work</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', creative_works_path %>
+<%= render 'shared/seed_form', title: 'Créer un travail créatif', seed_fields: [:name, :description, :thumbnail, :url] %>

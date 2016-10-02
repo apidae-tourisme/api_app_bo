@@ -1,5 +1,2 @@
-<h1>New Project</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', projects_path %>
+<%= render 'shared/seed_form', title: 'Créer un projet', seed_fields: [:name, :description, :thumbnail, :start_date,
+                                                                          :end_date, :url] %>

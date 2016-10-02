@@ -1,6 +1,1 @@
-<h1>Editing Idea</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @idea %> |
-<%= link_to 'Back', ideas_path %>
+<%= render 'shared/seed_form', title: 'Modifier une idée', seed_fields: [:name, :description, :thumbnail] %>

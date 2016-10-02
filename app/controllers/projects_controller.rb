@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project = Project.new
+    @seed = Project.new
   end
 
   def edit
@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
 
   private
     def set_project
-      @project = Project.find(params[:id])
+      @seed = Project.find(params[:id])
     end
 
     def project_params

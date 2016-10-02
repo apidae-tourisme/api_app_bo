@@ -1,6 +1,1 @@
-<h1>Editing Concept</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @concept %> |
-<%= link_to 'Back', concepts_path %>
+<%= render 'shared/seed_form', title: 'Modifier un concept', seed_fields: [:name, :description, :thumbnail] %>

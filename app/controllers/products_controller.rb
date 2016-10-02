@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @product = Product.new
+    @seed = Product.new
   end
 
   def edit
@@ -51,7 +51,7 @@ class ProductsController < ApplicationController
 
   private
     def set_product
-      @product = Product.find(params[:id])
+      @seed = Product.find(params[:id])
     end
 
     def product_params

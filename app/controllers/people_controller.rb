@@ -9,7 +9,7 @@ class PeopleController < ApplicationController
   end
 
   def new
-    @person = Person.new
+    @seed = Person.new
   end
 
   def edit
@@ -51,7 +51,7 @@ class PeopleController < ApplicationController
 
   private
     def set_person
-      @person = Person.find(params[:id])
+      @seed = Person.find(params[:id])
     end
 
     def person_params

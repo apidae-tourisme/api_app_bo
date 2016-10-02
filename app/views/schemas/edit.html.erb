@@ -1,6 +1,1 @@
-<h1>Editing Schema</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @schema %> |
-<%= link_to 'Back', schemas_path %>
+<%= render 'shared/seed_form', title: 'Modifier un schéma', seed_fields: [:name, :description, :thumbnail] %>

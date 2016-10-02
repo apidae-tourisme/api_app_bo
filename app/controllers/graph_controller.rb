@@ -5,7 +5,7 @@ class GraphController < ApplicationController
     if params[:id] == 'root'
       node = Neo4j::Session.current.query.match(n: {reference: 'Apidae'}).return(:n).first
     else
-      node = Neo4j::Session.current.query.match(n: {uuid: params[:id]}).return(:n).first
+      node = find_node(params[:id])
     end
     if node
       node_seed = node.n
@@ -20,5 +20,10 @@ class GraphController < ApplicationController
 
   def nodes
     @nodes = Neo4j::Session.current.query.match(:n).return(:n).collect {|res| res.n}
+  end
+
+  def search
+    @seeds = Neo4j::Session.current.query.match(:n).where('(n.name =~ ?)', "(?i).*#{params[:pattern]}.*").return(:n).
+        collect {|res| res.n}
   end
 end

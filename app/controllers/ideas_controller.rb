@@ -9,7 +9,7 @@ class IdeasController < ApplicationController
   end
 
   def new
-    @idea = Idea.new
+    @seed = Idea.new
   end
 
   def edit
@@ -51,7 +51,7 @@ class IdeasController < ApplicationController
 
   private
     def set_idea
-      @idea = Idea.find(params[:id])
+      @seed = Idea.find(params[:id])
     end
 
     def idea_params

@@ -9,7 +9,7 @@ class CompetencesController < ApplicationController
   end
 
   def new
-    @competence = Competence.new
+    @seed = Competence.new
   end
 
   def edit
@@ -51,10 +51,10 @@ class CompetencesController < ApplicationController
 
   private
     def set_competence
-      @competence = Competence.find(params[:id])
+      @seed = Competence.find(params[:id])
     end
 
     def competence_params
-      params.require(:competence).permit(:created_at, :updated_at, :name, :description, :thumbnail)
+      params.require(:competence).permit(:created_at, :updated_at, :name, :description, :thumbnail, seeds: [])
     end
 end

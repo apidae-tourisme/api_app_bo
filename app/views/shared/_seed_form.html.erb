@@ -1,0 +1,59 @@
+<h2><%= title %></h2>
+<br/>
+<%= form_for(@seed, html: {class: 'form-horizontal'}) do |f| %>
+
+    <% if @seed.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+            <% @competence.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <% seed_fields.each do |field| %>
+    <fieldset class="row">
+      <div class="col-sm-3 text-right"><%= f.label field %></div>
+      <div class="col-sm-9"><%= f.text_field field %></div>
+    </fieldset>
+    <% end %>
+
+    <fieldset class="row">
+      <div class="col-sm-3 text-right"><%= f.label 'Graines liées' %></div>
+      <div class="col-sm-9"><%= f.select :seeds, f.object.connected_seeds.collect {|s| [s.name, s.id]}, {}, multiple: true,
+                   id: 'nodes_select', 'data-placeholder' => 'Choix des graines liées' %></div>
+    </fieldset>
+
+    <div class="row">
+      <div class="col-sm-8"></div>
+      <div class="col-sm-4 text-right">
+        <%= link_to 'Retour', send("#{@seed.class.to_s.pluralize.underscore}_path"), class: 'btn btn-warning' %>&nbsp;
+        <%= f.submit 'Valider', class: 'btn btn-primary' %>
+      </div>
+    </div>
+<% end %>
+
+<script>
+  $("#nodes_select").select2({
+    theme: "bootstrap",
+    language: "fr",
+    minimumInputLength: 2,
+    ajax: {
+      url: "/graph/search",
+      delay: 500,
+      data: function (params) {
+        var query = {
+          pattern: params.term,
+          page: params.page
+        };
+        return query;
+      },
+      processResults: function (data) {
+        return {
+          results: data.seeds
+        };
+      }
+    }
+  });
+</script>

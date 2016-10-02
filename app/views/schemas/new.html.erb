@@ -1,5 +1,1 @@
-<h1>New Schema</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', schemas_path %>
+<%= render 'shared/seed_form', title: 'Créer un schéma', seed_fields: [:name, :description, :thumbnail] %>

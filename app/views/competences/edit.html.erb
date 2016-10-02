@@ -1,6 +1,1 @@
-<h1>Editing Competence</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @competence %> |
-<%= link_to 'Back', competences_path %>
+<%= render 'shared/seed_form', title: 'Modifier une compétence', seed_fields: [:name, :description, :thumbnail] %>

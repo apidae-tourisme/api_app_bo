@@ -9,7 +9,7 @@ class CreativeWorksController < ApplicationController
   end
 
   def new
-    @creative_work = CreativeWork.new
+    @seed = CreativeWork.new
   end
 
   def edit
@@ -51,7 +51,7 @@ class CreativeWorksController < ApplicationController
 
   private
     def set_creative_work
-      @creative_work = CreativeWork.find(params[:id])
+      @seed = CreativeWork.find(params[:id])
     end
 
     def creative_work_params

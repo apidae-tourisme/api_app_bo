@@ -1,5 +1,2 @@
-<h1>New Person</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', people_path %>
+<%= render 'shared/seed_form', title: 'Créer une personne', seed_fields: [:name, :description, :thumbnail, :firstname,
+                                                                             :lastname, :role, :email, :telephone] %>

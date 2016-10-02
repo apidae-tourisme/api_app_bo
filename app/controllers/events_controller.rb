@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = Event.new
+    @seed = Event.new
   end
 
   def edit
@@ -51,7 +51,7 @@ class EventsController < ApplicationController
 
   private
     def set_event
-      @event = Event.find(params[:id])
+      @seed = Event.find(params[:id])
     end
 
     def event_params

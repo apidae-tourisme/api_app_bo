@@ -9,7 +9,7 @@ class OrganizationsController < ApplicationController
   end
 
   def new
-    @organization = Organization.new
+    @seed = Organization.new
   end
 
   def edit
@@ -51,7 +51,7 @@ class OrganizationsController < ApplicationController
 
   private
     def set_organization
-      @organization = Organization.find(params[:id])
+      @seed = Organization.find(params[:id])
     end
 
     def organization_params

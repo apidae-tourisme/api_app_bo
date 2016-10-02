@@ -14,4 +14,8 @@ class ApplicationController < ActionController::Base
   def handle_options_request
     head(:ok) if request.request_method == 'OPTIONS'
   end
+
+  def find_node(node_id)
+    Neo4j::Session.current.query.match(n: {uuid: node_id}).return(:n).first
+  end
 end

@@ -9,7 +9,7 @@ class SchemasController < ApplicationController
   end
 
   def new
-    @schema = Schema.new
+    @seed = Schema.new
   end
 
   def edit
@@ -51,7 +51,7 @@ class SchemasController < ApplicationController
 
   private
     def set_schema
-      @schema = Schema.find(params[:id])
+      @seed = Schema.find(params[:id])
     end
 
     def schema_params

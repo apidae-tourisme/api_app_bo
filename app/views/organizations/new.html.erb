@@ -1,5 +1,3 @@
-<h1>New Organization</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', organizations_path %>
+<%= render 'shared/seed_form', title: 'Créer une organization', seed_fields: [:name, :description, :address, :email,
+                                                                                 :telephone, :thumbnail, :latitude,
+                                                                                 :longitude] %>

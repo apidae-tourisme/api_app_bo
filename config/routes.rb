@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   match 'graph/node/:id', to: 'graph#node', via: :get
   match 'graph/nodes', to: 'graph#nodes', via: :get
+  match 'graph/search', to: 'graph#search', via: :get
 
   resources :events
   resources :tasks

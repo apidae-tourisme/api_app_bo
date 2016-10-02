@@ -1,6 +1,3 @@
-<h1>Editing Organization</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @organization %> |
-<%= link_to 'Back', organizations_path %>
+<%= render 'shared/seed_form', title: 'Modifier une organization', seed_fields: [:name, :description, :address, :email,
+                                                                                 :telephone, :thumbnail, :latitude,
+                                                                                 :longitude] %>

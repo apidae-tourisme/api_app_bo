@@ -13,5 +13,6 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'select2-rails'
+gem 'jquery-datatables-rails', '~> 3.4.0'
 
 gem 'neo4j', '~> 7.1.0'

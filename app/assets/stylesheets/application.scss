@@ -10,6 +10,7 @@ $brand-danger:          #d67c7d !default;
 @import "font-awesome";
 @import "select2";
 @import "select2-bootstrap";
+@import "dataTables/bootstrap/3/jquery.dataTables.bootstrap";
 
 body {
   padding-top: 70px;
@@ -32,4 +33,8 @@ form .row {
 
 form #nodes_select, form input[type=text] {
   width: 100%;
+}
+
+#dashboard a.btn {
+  width: 60%;
 }

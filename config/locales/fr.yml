@@ -1,0 +1,36 @@
+fr:
+  seeds:
+    concepts:
+      label: "Etiquettes"
+      desc: "Idée de tag, d'étiquette, descripteur, qualificateur"
+    people:
+      label: "Acteurs"
+      desc: "Agents, personnes actives. Le terme de Person a été préféré à celui d'Agent (défini  dans Schema.org) pour donner la priorité à l'humain."
+    events:
+      label: "Rencontres"
+      desc: "Idée de réunion, rencontre d'acteurs."
+    creative_works:
+      label: "Réalisations"
+      desc: "Idée de création unique, d'oeuvre."
+    products:
+      label: "Services"
+      desc: "Idée de répétition de la création : produit industriel, service"
+    projects:
+      label: "Chantiers"
+      desc: ""
+    organizations:
+      label: "Equipes"
+      desc: "Idée d'ensemble de personnes ou de groupe d'acteurs, travaillant dans un cadre légal/institutionnel ou non pour une action collective : entreprises, départements d'une entreprise, groupes de travail..."
+    competences:
+      label: "Rôles"
+      desc: "Exprime une Compétence et donne un pouvoir d'agir (unité élémentaire)"
+    actions:
+      label: "Actions"
+      desc: "Unité élémentaire d'action"
+    ideas:
+      label: "Idées"
+      desc: "Unité élémentaire de la réalisation"
+    schemas:
+      label: "Schémas"
+      desc: "Graine d'information qui représente un ensemble cohérents de graines reliées entre elles, quelque soit leur type, y compris des schémas (représentation fractale)."
+

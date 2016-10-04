@@ -1,50 +1,52 @@
-<div class="jumbotron">
-  <h2>ApiApp - Administration</h2>
-  <p>Interface d'administration des données ApiApp (version beta)</p>
-</div>
-<div class="row">
-  <div class="col-sm-4 text-center">
-    <%= link_to 'Competences', competences_path, class: 'btn btn-lg btn-primary' %>
+<div id="dashboard">
+  <div class="jumbotron">
+    <h2>ApiApp - Administration</h2>
+    <p>Interface d'administration des données ApiApp (version beta)</p>
   </div>
-  <div class="col-sm-4 text-center">
-    <%= link_to 'Concepts', concepts_path, class: 'btn btn-lg btn-primary' %>
+  <div class="row">
+    <div class="col-sm-4 text-center">
+      <%= link_to t('seeds.concepts.label'), concepts_path, class: 'btn btn-lg btn-primary' %>
+    </div>
+    <div class="col-sm-4 text-center">
+      <%= link_to t('seeds.people.label'), people_path, class: 'btn btn-lg btn-primary' %>
+    </div>
+    <div class="col-sm-4 text-center">
+      <%= link_to t('seeds.events.label'), events_path, class: 'btn btn-lg btn-primary' %>
+    </div>
   </div>
-  <div class="col-sm-4 text-center">
-    <%= link_to 'Creative works', creative_works_path, class: 'btn btn-lg btn-primary' %>
+  <br/>
+  <div class="row">
+    <div class="col-sm-4 text-center">
+      <%= link_to t('seeds.creative_works.label'), creative_works_path, class: 'btn btn-lg btn-primary' %>
+    </div>
+    <div class="col-sm-4 text-center">
+      <%= link_to t('seeds.products.label'), products_path, class: 'btn btn-lg btn-primary' %>
+    </div>
+    <div class="col-sm-4 text-center">
+      <%= link_to t('seeds.projects.label'), projects_path, class: 'btn btn-lg btn-primary' %>
+    </div>
   </div>
-</div>
-<br/>
-<div class="row">
-  <div class="col-sm-4 text-center">
-    <%= link_to 'Events', events_path, class: 'btn btn-lg btn-primary' %>
+  <br/>
+  <div class="row">
+    <div class="col-sm-4 text-center">
+      <%= link_to t('seeds.organizations.label'), organizations_path, class: 'btn btn-lg btn-primary' %>
+    </div>
+    <div class="col-sm-4 text-center">
+      <%= link_to t('seeds.competences.label'), competences_path, class: 'btn btn-lg btn-primary' %>
+    </div>
+    <div class="col-sm-4 text-center">
+      <%= link_to t('seeds.actions.label'), tasks_path, class: 'btn btn-lg btn-primary' %>
+    </div>
   </div>
-  <div class="col-sm-4 text-center">
-    <%= link_to 'Ideas', ideas_path, class: 'btn btn-lg btn-primary' %>
-  </div>
-  <div class="col-sm-4 text-center">
-    <%= link_to 'Organizations', organizations_path, class: 'btn btn-lg btn-primary' %>
-  </div>
-</div>
-<br/>
-<div class="row">
-  <div class="col-sm-4 text-center">
-    <%= link_to 'People', people_path, class: 'btn btn-lg btn-primary' %>
-  </div>
-  <div class="col-sm-4 text-center">
-    <%= link_to 'Products', products_path, class: 'btn btn-lg btn-primary' %>
-  </div>
-  <div class="col-sm-4 text-center">
-    <%= link_to 'Projects', projects_path, class: 'btn btn-lg btn-primary' %>
-  </div>
-</div>
-<br/>
-<div class="row">
-  <div class="col-sm-4 text-center">
-    <%= link_to 'Schemas', schemas_path, class: 'btn btn-lg btn-primary' %>
-  </div>
-  <div class="col-sm-4 text-center">
-    <%= link_to 'Actions', tasks_path, class: 'btn btn-lg btn-primary' %>
-  </div>
-  <div class="col-sm-4 text-center">
+  <br/>
+  <div class="row">
+    <div class="col-sm-4 text-center">
+      <%= link_to t('seeds.ideas.label'), ideas_path, class: 'btn btn-lg btn-primary' %>
+    </div>
+    <div class="col-sm-4 text-center">
+      <%= link_to t('seeds.schemas.label'), schemas_path, class: 'btn btn-lg btn-primary' %>
+    </div>
+    <div class="col-sm-4 text-center">
+    </div>
   </div>
 </div>

@@ -1,19 +1,23 @@
 <div class="page-header">
   <div class="row">
-    <div class="col-sm-8"><h1><%= title %></h1></div>
+    <div class="col-sm-8">
+      <h1><%= title %></h1>
+      <small><%= desc %></small>
+    </div>
     <div class="col-sm-4 text-right">
       <%= link_to fa_icon('plus'), url_for(action: :new), class: 'btn btn-lg btn-info' %>
     </div>
   </div>
 </div>
 <div>
-  <table class="table table-striped table-responsive">
+  <table id="seeds" class="table table-striped table-responsive">
     <thead>
       <tr>
         <% cols.each do |col| %>
           <th><%= t "seeds.properties.#{col}" %></th>
         <% end %>
-        <th colspan="2"></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -29,3 +33,39 @@
     </tbody>
   </table>
 </div>
+
+<% content_for :footer_scripts do %>
+    <script>
+      $("#seeds").dataTable({
+        paging: true,
+        ordering: true,
+        info: true,
+        pageLength: 25,
+        language: {
+          "sProcessing": "Traitement en cours...",
+          "sSearch": "Rechercher&nbsp;:",
+          "sLengthMenu": "Afficher _MENU_ r&eacute;sultats",
+          "sInfo": "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+          "sInfoEmpty": "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+          "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+          "sInfoPostFix": "",
+          "sLoadingRecords": "Chargement en cours...",
+          "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+          "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+          "oPaginate": {
+            "sFirst": "<<",
+            "sPrevious": "<",
+            "sNext": ">",
+            "sLast": ">>"
+          },
+          "oAria": {
+            "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+            "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+          }
+        },
+        "columnDefs": [
+          { "orderable": false, "targets": [-1, -2] }
+        ]
+      });
+    </script>
+<% end %>

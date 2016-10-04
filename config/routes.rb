@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
 
+  get 'seed/index'
+
+  get 'seed/show'
+
+  get 'seed/new'
+
+  get 'seed/edit'
+
+  get 'seed/create'
+
+  get 'seed/update'
+
+  get 'seed/destroy'
+
   match '*path', :controller => 'application', :action => 'handle_options_request',
         :constraints => {:method => 'OPTIONS'}, via: [:options]
 

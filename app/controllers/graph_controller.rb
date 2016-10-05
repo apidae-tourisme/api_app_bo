@@ -1,8 +1,11 @@
 class GraphController < ApplicationController
+
+  DEFAULT_NODE = 'default'
+
   def node
     @nodes = []
     @links = []
-    if params[:id] == 'root'
+    if params[:id] == DEFAULT_NODE
       node = Neo4j::Session.current.query.match(n: {reference: 'Apidae'}).return(:n).first
     else
       node = find_node(params[:id])

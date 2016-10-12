@@ -21,4 +21,8 @@ module SeedHelper
   def icon_names(names = [])
     array_value(names).map { |n| "fa-#{n}" }
   end
+
+  def array_value(value = [])
+    value.is_a?(Array) ? value : value.to_s.split(/\s+/)
+  end
 end

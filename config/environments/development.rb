@@ -35,4 +35,24 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Apidae config
+  config.apidae_config = {
+      :base_url => 'http://api.apidae-tourisme.com/api/v002',
+      :api_key => 'B3EUROG0',
+      :site_identifier => '927'
+  }
+
+  config.oauth_config = {
+      auth_site: 'http://api.apidae-tourisme.com',
+      token_path: '/oauth/token'
+  }
+
+  config.omniauth_config = {
+      :authorize_site => 'http://base.apidae-tourisme.com',
+      :auth_site => 'http://api.apidae-tourisme.com',
+      :client_id => '5f32d982-637b-45b2-95ca-cc01e60d33d6',
+      :client_secret => 'yq79yCeDwtfIDHe',
+      :profile_url => '/api/v002/sso/utilisateur/profil'
+  }
 end

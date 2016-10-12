@@ -13,6 +13,7 @@
   <table id="seeds" class="table table-striped table-responsive">
     <thead>
       <tr>
+        <th>Timestamp</th>
         <% cols.each do |col| %>
           <th><%= t "seeds.properties.#{col}" %></th>
         <% end %>
@@ -23,6 +24,7 @@
     <tbody>
       <% @seeds.each do |seed| %>
       <tr>
+        <td><span class="hidden"><%= seed.created_at %></span><%= l(seed.creation_date, format: :detailedbis) %></td>
         <% cols.each do |col| %>
         <td><%= seed.send(col) %></td>
         <% end %>
@@ -39,6 +41,7 @@
       $("#seeds").dataTable({
         paging: true,
         ordering: true,
+        order: [[0, 'desc']],
         info: true,
         pageLength: 25,
         language: {

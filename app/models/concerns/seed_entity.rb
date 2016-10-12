@@ -39,5 +39,9 @@ module SeedEntity
     def set_update_timestamp
       self.updated_at = Time.current.to_i
     end
+
+    def creation_date
+      Time.at(self.created_at)
+    end
   end
 end

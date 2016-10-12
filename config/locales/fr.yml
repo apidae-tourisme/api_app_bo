@@ -33,4 +33,47 @@ fr:
     schemas:
       label: "Schémas"
       desc: "Graine d'information qui représente un ensemble cohérents de graines reliées entre elles, quelque soit leur type, y compris des schémas (représentation fractale)."
+  date:
+    abbr_day_names:
+       - Dim
+       - Lun
+       - Mar
+       - Mer
+       - Jeu
+       - Ven
+       - Sam
+    day_names:
+       - Dimanche
+       - Lundi
+       - Mardi
+       - Mercredi
+       - Jeudi
+       - Vendredi
+       - Samedi
+    month_names:
+       - ~
+       - Janvier
+       - Février
+       - Mars
+       - Avril
+       - Mai
+       - Juin
+       - Juillet
+       - Août
+       - Septembre
+       - Octobre
+       - Novembre
+       - Décembre
+    formats:
+      default: "%A %e %B %Y"
+      short: "%a %d/%m"
+      datepicker: "%Y-%m-%d"
+      calendar: "%d/%m/%Y"
+  time:
+    formats:
+      default: "%d/%m/%Y"
+      detailed: "%A %d/%m à %H:%M"
+      detailedbis: "%d/%m/%Y %H:%M"
+      datepicker: "%Y-%m-%d"
+      hour: "%Hh%M"
 

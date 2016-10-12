@@ -16,3 +16,7 @@ gem 'select2-rails'
 gem 'jquery-datatables-rails', '~> 3.4.0'
 
 gem 'neo4j', '~> 7.1.0'
+gem 'devise-neo4j'
+gem 'omniauth'
+gem 'omniauth-oauth2', '~> 1.3.1'
+gem 'devise_token_auth'

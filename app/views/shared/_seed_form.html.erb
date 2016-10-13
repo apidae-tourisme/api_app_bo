@@ -5,7 +5,7 @@
     <% if @seed.errors.any? %>
         <div id="error_explanation">
           <ul>
-            <% @competence.errors.full_messages.each do |message| %>
+            <% @seed.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
             <% end %>
           </ul>

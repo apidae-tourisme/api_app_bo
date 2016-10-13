@@ -11,7 +11,7 @@ class Person
   property :telephone, type: String
   property :mobilephone, type: String
 
-  # include OAuth concern after Neo4j properties to avoir a name conflict on 'email' property
+  # include OAuth concern after Neo4j properties to avoid a name conflict on 'email' property
   include UserConcern
 
   # Auth-related properties
@@ -24,6 +24,8 @@ class Person
   property :last_sign_in_ip, type: String
   property :sign_in_count, type: Integer
   property :encrypted_password, type: String
+
+  serialize :tokens
 
   # has_many :out, :organizations, type: :employed_by
   # has_many :out, :projects, type: :involved_in

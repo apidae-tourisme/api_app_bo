@@ -16,6 +16,7 @@ module UserConcern
   end
 
   included do
+
     # Hack to check if devise is already enabled
     unless self.method_defined?(:devise_modules)
       devise :database_authenticatable, :registerable,
@@ -24,22 +25,15 @@ module UserConcern
       self.devise_modules.delete(:omniauthable)
     end
 
-    serialize :tokens, JSON
-
-
-    if DeviseTokenAuth.default_callbacks
-      include DeviseTokenAuth::Concerns::UserOmniauthCallbacks
-    end
-
-    # can't set default on text fields in mysql, simulate here instead.
-    after_save :set_empty_token_hash
-    after_initialize :set_empty_token_hash
-
     # get rid of dead tokens
     before_save :destroy_expired_tokens
 
-    # remove old tokens if password has changed
-    before_save :remove_tokens_after_password_reset
+    validates :email, presence: true, email: true, if: Proc.new { |u| u.provider == 'apidae' }
+    validates_presence_of :uid, if: Proc.new { |u| u.provider == 'apidae' }
+    validate :unique_email_user
+
+    # before_save :sync_uid
+    # before_create :sync_uid
 
     # allows user to change password without current_password
     attr_writer :allow_password_change
@@ -56,49 +50,16 @@ module UserConcern
       false
     end
 
-    # override devise method to include additional info as opts hash
-    def send_confirmation_instructions(opts=nil)
-      unless @raw_confirmation_token
-        generate_confirmation_token!
+    def unique_email_user
+      if provider == 'apidae' and self.class.where(provider: 'apidae', email: email).count > 0
+        errors.add(:email, I18n.t('errors.messages.already_in_use'))
       end
-
-      opts ||= {}
-
-      # fall back to "default" config name
-      opts[:client_config] ||= "default"
-
-      if pending_reconfirmation?
-        opts[:to] = unconfirmed_email
-      end
-      opts[:redirect_url] ||= DeviseTokenAuth.default_confirm_success_url
-
-      send_devise_notification(:confirmation_instructions, @raw_confirmation_token, opts)
     end
 
-    # override devise method to include additional info as opts hash
-    def send_reset_password_instructions(opts=nil)
-      token = set_reset_password_token
-
-      opts ||= {}
-
-      # fall back to "default" config name
-      opts[:client_config] ||= "default"
-
-      send_devise_notification(:reset_password_instructions, token, opts)
-
-      token
+    def sync_uid
+      self.uid = email if provider == 'apidae'
     end
   end
-
-  module ClassMethods
-    protected
-
-
-    def tokens_has_json_column_type?
-      table_exists? && self.columns_hash['tokens'] && self.columns_hash['tokens'].type.in?([:json, :jsonb])
-    end
-  end
-
 
   def valid_token?(token, client_id='default')
     client_id ||= 'default'
@@ -111,14 +72,6 @@ module UserConcern
     # return false if none of the above conditions are met
     return false
   end
-
-
-  # this must be done from the controller so that additional params
-  # can be passed on from the client
-  def send_confirmation_notification?
-    false
-  end
-
 
   def token_is_current?(token, client_id)
     # ghetto HashWithIndifferentAccess
@@ -230,30 +183,12 @@ module UserConcern
     ])
   end
 
-
-  protected
-
-  def set_empty_token_hash
-    self.tokens ||= {}
-  end
-
   def destroy_expired_tokens
     if self.tokens
       self.tokens.delete_if do |cid, v|
         expiry = v[:expiry] || v["expiry"]
         DateTime.strptime(expiry.to_s, '%s') < Time.now
       end
-    end
-  end
-
-  def remove_tokens_after_password_reset
-    there_is_more_than_one_token = self.tokens && self.tokens.keys.length > 1
-    should_remove_old_tokens = DeviseTokenAuth.remove_tokens_after_password_reset &&
-        encrypted_password_changed? && there_is_more_than_one_token
-
-    if should_remove_old_tokens
-      latest_token = self.tokens.max_by { |cid, v| v[:expiry] || v["expiry"] }
-      self.tokens = { latest_token.first => latest_token.last }
     end
   end
 

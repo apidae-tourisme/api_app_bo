@@ -26,14 +26,11 @@ module UserConcern
     end
 
     # get rid of dead tokens
-    before_save :destroy_expired_tokens
+    before_update :destroy_expired_tokens
 
     validates :email, presence: true, email: true, if: Proc.new { |u| u.provider == 'apidae' }
     validates_presence_of :uid, if: Proc.new { |u| u.provider == 'apidae' }
-    validate :unique_email_user
-
-    # before_save :sync_uid
-    # before_create :sync_uid
+    validate :unique_email_user, on: :create
 
     # allows user to change password without current_password
     attr_writer :allow_password_change
@@ -56,9 +53,6 @@ module UserConcern
       end
     end
 
-    def sync_uid
-      self.uid = email if provider == 'apidae'
-    end
   end
 
   def valid_token?(token, client_id='default')

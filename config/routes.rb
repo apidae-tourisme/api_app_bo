@@ -12,12 +12,12 @@ Rails.application.routes.draw do
   end
 
   resources :events
-  resources :tasks
+  resources :tasks, path: 'actions'
   resources :ideas
   resources :competences
   resources :schemas
   resources :creative_works
-  resources :people
+  resources :persons
   resources :concepts
   resources :products
   resources :projects

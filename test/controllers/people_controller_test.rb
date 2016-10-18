@@ -8,7 +8,7 @@ class PeopleControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:people)
+    assert_not_nil assigns(:persons)
   end
 
   test "should get new" do

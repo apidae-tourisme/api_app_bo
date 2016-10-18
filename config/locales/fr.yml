@@ -2,37 +2,37 @@ fr:
   seeds:
     concepts:
       label: "Etiquettes"
-      desc: "Idée de tag, d'étiquette, descripteur, qualificateur"
+      desc: "Qualifie une graine d'information, une relation ou un ensemble de graines : tag, descripteur..."
     people:
       label: "Acteurs"
-      desc: "Agents, personnes actives. Le terme de Person a été préféré à celui d'Agent (défini  dans Schema.org) pour donner la priorité à l'humain."
+      desc: "Personne référencée dans le réseau."
     events:
       label: "Rencontres"
-      desc: "Idée de réunion, rencontre d'acteurs."
+      desc: "Evénement regroupant des acteurs : réunion, atelier..."
     creative_works:
-      label: "Réalisations"
-      desc: "Idée de création unique, d'oeuvre."
+      label: "Ressources"
+      desc: "Réalisation, production, document de référence, oeuvre utile au réseau."
     products:
       label: "Services"
-      desc: "Idée de répétition de la création : produit industriel, service"
+      desc: "Prestation utile au réseau, dispensée ou non par un Acteur ou une Equipe du réseau."
     projects:
       label: "Chantiers"
-      desc: ""
+      desc: "Ensemble d'opérations menées dans des délais et un budget fixé."
     organizations:
       label: "Equipes"
-      desc: "Idée d'ensemble de personnes ou de groupe d'acteurs, travaillant dans un cadre légal/institutionnel ou non pour une action collective : entreprises, départements d'une entreprise, groupes de travail..."
+      desc: "Groupe de personnes partageant un but commun : organisation, unité institutionnelle, entreprise, groupe de travail..."
     competences:
       label: "Rôles"
-      desc: "Exprime une Compétence et donne un pouvoir d'agir (unité élémentaire)"
+      desc: "Un rôle suppose un but à atteindre, un domaine à contrôler et des responsabilités à assurer."
     actions:
       label: "Actions"
-      desc: "Unité élémentaire d'action"
+      desc: "Tâche à faire ou commande à exécuter."
     ideas:
       label: "Idées"
-      desc: "Unité élémentaire de la réalisation"
+      desc: "Représentation mentale : suggestion, proposition, solution."
     schemas:
       label: "Schémas"
-      desc: "Graine d'information qui représente un ensemble cohérents de graines reliées entre elles, quelque soit leur type, y compris des schémas (représentation fractale)."
+      desc: "Ensemble signifiant de graines d'information, pour un Acteur ou une Equipe."
   date:
     abbr_day_names:
        - Dim

@@ -16,6 +16,11 @@ module SeedEntity
     before_create :set_creation_timestamp
     before_save :set_update_timestamp
 
+    def visible_fields
+      attributes.except('provider', 'uid', 'tokens', 'current_sign_in_at', 'current_sign_in_ip', 'last_sign_in_at',
+                        'last_sign_in_ip', 'sign_in_count', 'encrypted_password').merge({'label' => label})
+    end
+
     def label
       self.class.to_s
     end

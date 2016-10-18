@@ -25,6 +25,11 @@ class GraphController < ApplicationController
     @nodes = Neo4j::Session.current.query.match(:n).return(:n).collect {|res| res.n}
   end
 
+  def details
+    node_entry = find_node(params[:id])
+    @node = node_entry.n unless node_entry.nil?
+  end
+
   def search
     @seeds = Neo4j::Session.current.query.match(:n).where('(n.name =~ ?)', "(?i).*#{params[:pattern]}.*").return(:n).
         collect {|res| res.n}

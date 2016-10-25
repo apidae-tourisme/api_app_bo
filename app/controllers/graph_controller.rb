@@ -31,7 +31,7 @@ class GraphController < ApplicationController
   end
 
   def search
-    @seeds = Neo4j::Session.current.query.match(:n).where('(n.name =~ ?)', "(?i).*#{params[:pattern]}.*").return(:n).
-        collect {|res| res.n}
+    @seeds = Neo4j::Session.current.query.match(:n).where('(n.name =~ ?)', "(?i).*#{params[:pattern]}.*").
+        order(n: {neo_id: :desc}).return(:n).collect {|res| res.n}
   end
 end

@@ -22,7 +22,7 @@ class GraphController < ApplicationController
   end
 
   def nodes
-    @nodes = Neo4j::Session.current.query.match(:n).return(:n).collect {|res| res.n}
+    @nodes = Neo4j::Session.current.query.match(:n).order(n: {neo_id: :desc}).return(:n).collect {|res| res.n}
   end
 
   def details

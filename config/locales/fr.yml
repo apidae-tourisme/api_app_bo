@@ -1,3 +1,13 @@
+fields: &fields
+  name: "Nom"
+  description: "Description"
+  thumbnail: "Illustration"
+  url: "URL"
+  latitude: "Latitude"
+  longitude: "Longitude"
+  start_date: "Début"
+  end_date: "Fin"
+
 fr:
   seeds:
     concepts:
@@ -33,6 +43,39 @@ fr:
     schemas:
       label: "Schémas"
       desc: "Ensemble signifiant de graines d'information, pour un Acteur ou une Equipe."
+  helpers:
+    label:
+      competence:
+        <<: *fields
+      concept:
+        <<: *fields
+      creative_work:
+        <<: *fields
+      event:
+        <<: *fields
+      idea:
+        <<: *fields
+      organization:
+        <<: *fields
+        address: "Adresse"
+        email: "Email"
+        telephone: "Téléphone"
+      person:
+        <<: *fields
+        firstname: "Prénom"
+        lastname: "Nom"
+        role: "Fonction"
+        email: "Email"
+        telephone: "Ligne fixe"
+        mobilephone: "Portable"
+      product:
+        <<: *fields
+      project:
+        <<: *fields
+      schema:
+        <<: *fields
+      task:
+        <<: *fields
   date:
     abbr_day_names:
        - Dim

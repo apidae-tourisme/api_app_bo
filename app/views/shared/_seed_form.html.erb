@@ -12,11 +12,21 @@
         </div>
     <% end %>
 
-    <% seed_fields.each do |field| %>
-    <fieldset class="row">
-      <div class="col-sm-3 text-right"><%= f.label field %></div>
-      <div class="col-sm-9"><%= f.text_field field %></div>
-    </fieldset>
+    <% form_fields(seed_fields).each do |field| %>
+        <% if field == :started_at %>
+          <fieldset class="row">
+            <div class="col-sm-3 text-right"><%= f.label :start_date %></div>
+            <div class="col-sm-3"><%= f.datetime_select :started_at, {}, class: 'form-control' %></div>
+        <% elsif field == :ended_at %>
+            <div class="col-sm-3 text-right"><%= f.label :end_date %></div>
+            <div class="col-sm-3"><%= f.datetime_select :ended_at, {}, class: 'form-control' %></div>
+          </fieldset>
+        <% else %>
+          <fieldset class="row">
+            <div class="col-sm-3 text-right"><%= f.label field %></div>
+            <div class="col-sm-9"><%= f.text_field field %></div>
+          </fieldset>
+        <% end %>
     <% end %>
 
     <fieldset class="row">
@@ -54,6 +64,21 @@
           results: data.seeds
         };
       }
+    }
+  });
+  $("form .datetimepicker").datetimepicker({
+    locale: 'fr',
+    format: 'DD/MM/YYYY HH:mm',
+    sideBySide: true,
+    icons: {
+      time: 'fa fa-clock-o',
+      date: 'fa fa-calendar',
+      up: 'fa fa-chevron-up',
+      down: 'fa fa-chevron-down',
+      previous: 'fa fa-chevron-left',
+      next: 'fa fa-chevron-right',
+      today: 'fa fa-crosshairs',
+      clear: 'fa fa-trash'
     }
   });
 </script>

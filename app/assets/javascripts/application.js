@@ -1,6 +1,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require moment
+//= require moment/fr
+//= require bootstrap-datetimepicker
 //= require select2
 //= require select2_locale_fr
 //= require dataTables/jquery.dataTables

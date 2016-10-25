@@ -10,6 +10,11 @@ module SeedEntity
     property :name, type: String
     property :description, type: String
     property :thumbnail, type: String
+    property :url, type: String
+    property :latitude, type: BigDecimal
+    property :longitude, type: BigDecimal
+    property :start_date, type: Integer
+    property :end_date, type: Integer
 
     has_many :both, :connected_seeds, type: false, model_class: false
 
@@ -47,6 +52,22 @@ module SeedEntity
 
     def creation_date
       Time.at(self.created_at)
+    end
+
+    def started_at
+      Time.at(start_date) unless start_date.nil?
+    end
+
+    def started_at=(val)
+      self.start_date = val.nil? ? nil : Time.parse(val).to_i
+    end
+
+    def ended_at
+      Time.at(end_date) unless end_date.nil?
+    end
+
+    def ended_at=(val)
+      self.end_date = val.nil? ? nil : Time.parse(val).to_i
     end
   end
 end

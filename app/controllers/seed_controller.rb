@@ -1,4 +1,6 @@
 class SeedController < ApplicationController
+  include SeedFormConcern
+
   before_action :set_seed_class
   before_action :set_seed, only: [:show, :edit, :update, :destroy]
 
@@ -17,7 +19,7 @@ class SeedController < ApplicationController
   end
 
   def create
-    @seed = @seed_class.new(seed_params)
+    @seed = @seed_class.new(nullify(seed_params))
 
     respond_to do |format|
       if @seed.save
@@ -32,7 +34,7 @@ class SeedController < ApplicationController
 
   def update
     respond_to do |format|
-      if @seed.update(seed_params)
+      if @seed.update(nullify(seed_params))
         format.html { redirect_to send("#{@seed.class.to_s.pluralize.underscore}_url"), notice: 'La graine a bien été mise à jour.' }
         format.json { render :show, status: :ok, location: @seed }
       else
@@ -58,5 +60,14 @@ class SeedController < ApplicationController
 
   def set_seed
     @seed = @seed_class.find(params[:id])
+  end
+
+  # Blank values generate 0-values in int and float properties otherwise
+  def nullify(hsh)
+    n_hsh = hsh.dup
+    hsh.each_pair do |k, v|
+      n_hsh[k] = nil if v.blank?
+    end
+    n_hsh
   end
 end

@@ -22,7 +22,7 @@ class GraphController < ApplicationController
   end
 
   def nodes
-    @nodes = Neo4j::Session.current.query.match(:n).order(n: {neo_id: :desc}).return(:n).collect {|res| res.n}
+    @nodes = Neo4j::Session.current.query.match(:n).order(n: {updated_at: :desc}).return(:n).collect {|res| res.n}
   end
 
   def details
@@ -31,7 +31,8 @@ class GraphController < ApplicationController
   end
 
   def search
-    @seeds = Neo4j::Session.current.query.match(:n).where('(n.name =~ ?)', "(?i).*#{params[:pattern]}.*").
+    pattern = params[:pattern].transliterate
+    @seeds = Neo4j::Session.current.query.match(:n).where('(n.name =~ ?)', "(?i).*#{pattern}.*").
         order(n: {neo_id: :desc}).return(:n).collect {|res| res.n}
   end
 end

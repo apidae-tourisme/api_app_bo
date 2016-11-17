@@ -31,7 +31,7 @@ class GraphController < ApplicationController
   end
 
   def search
-    pattern = transliterate(params[:pattern])
+    pattern = I18n.transliterate(params[:pattern])
     @seeds = Neo4j::Session.current.query.match(:n).where('(n.name =~ ?)', "(?i).*#{pattern}.*").
         order(n: {neo_id: :desc}).return(:n).collect {|res| res.n}
   end

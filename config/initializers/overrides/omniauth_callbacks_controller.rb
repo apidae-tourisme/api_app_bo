@@ -39,5 +39,14 @@ module DeviseTokenAuth
       @resource
     end
 
+    # Fix for users created by the Apidae SSO login - deserialize doesnt work as expected
+    def set_token_on_resource
+      @resource.tokens = {} if @resource.tokens == '{}'
+      @resource.tokens[@client_id] = {
+          token: BCrypt::Password.create(@token),
+          expiry: @expiry
+      }
+    end
+
   end
 end

@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def find_node(node_id)
-    Neo4j::Session.current.query.match(n: {uuid: node_id}).return(:n).first
+    Neo4j::Session.current.query.match(n: {uuid: node_id}).return(:n).first ||
+        Neo4j::Session.current.query.match(n: {uid: node_id.to_s}).return(:n).first
   end
 end

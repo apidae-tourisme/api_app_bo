@@ -22,7 +22,7 @@ module SeedEntity
     before_save :set_update_timestamp
 
     def visible_fields
-      attributes.except('provider', 'uid', 'tokens', 'current_sign_in_at', 'current_sign_in_ip', 'last_sign_in_at',
+      attributes.except('provider', 'tokens', 'current_sign_in_at', 'current_sign_in_ip', 'last_sign_in_at',
                         'last_sign_in_ip', 'sign_in_count', 'encrypted_password').merge({'label' => label, 'id' => id})
     end
 

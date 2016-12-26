@@ -15,15 +15,21 @@ module SeedEntity
     property :longitude, type: BigDecimal
     property :start_date, type: Integer
     property :end_date, type: Integer
+    property :urls
+    property :history
+
+    serialize :urls
+    serialize :history
 
     has_many :both, :connected_seeds, type: false, model_class: false
 
     before_create :set_creation_timestamp
     before_save :set_update_timestamp
+    before_save :log_update
 
     def visible_fields
       attributes.except('provider', 'tokens', 'current_sign_in_at', 'current_sign_in_ip', 'last_sign_in_at',
-                        'last_sign_in_ip', 'sign_in_count', 'encrypted_password').merge({'label' => label, 'id' => id})
+                        'last_sign_in_ip', 'sign_in_count', 'encrypted_password', 'history').merge({'label' => label, 'id' => id})
     end
 
     def label
@@ -68,6 +74,15 @@ module SeedEntity
 
     def ended_at=(val)
       self.end_date = val.nil? ? nil : Time.parse(val).to_i
+    end
+
+    def author=(val)
+      @author = val
+    end
+
+    def log_update
+      self.history ||= {entries: []}
+      self.history[:entries] << {author: @author, timestamp: Time.current.to_i, changes: self.changes.except(:history)}
     end
   end
 end

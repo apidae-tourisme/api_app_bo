@@ -28,8 +28,10 @@ module SeedEntity
     before_save :log_update
 
     def visible_fields
-      attributes.except('provider', 'tokens', 'current_sign_in_at', 'current_sign_in_ip', 'last_sign_in_at',
-                        'last_sign_in_ip', 'sign_in_count', 'encrypted_password', 'history').merge({'label' => label, 'id' => id})
+      attributes.
+          except('provider', 'tokens', 'current_sign_in_at', 'current_sign_in_ip', 'last_sign_in_at', 'last_sign_in_ip',
+                 'sign_in_count', 'encrypted_password', 'history').
+          merge({'label' => label, 'id' => id, 'urls' => urls})
     end
 
     def label
@@ -81,7 +83,8 @@ module SeedEntity
     end
 
     def log_update
-      self.history ||= {entries: []}
+      self.history ||= {}
+      self.history[:entries] ||= []
       self.history[:entries] << {author: @author, timestamp: Time.current.to_i, changes: self.changes.except(:history)}
     end
   end

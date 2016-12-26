@@ -33,4 +33,8 @@ class Person
   # has_many :out, :products, type: :works_on
   # has_many :out, :concepts, type: :concepts
   # has_many :out, :ideas, origin: :initiator
+
+  def name
+    "#{self.firstname} #{self.lastname}"
+  end
 end

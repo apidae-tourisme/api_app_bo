@@ -23,16 +23,20 @@ class SeedsController < ApplicationController
   end
 
   def create
-
+    input_params = seed_params
+    unless input_params[:type].blank?
+      @seed = build_from_type(input_params[:type], input_params.except(:type))
+      if @seed.save
+        render :show, status: :ok
+      else
+        render json: @seed.errors, status: :unprocessable_entity
+      end
+    end
   end
 
   def edit
-
   end
 
-
-  # Todo : whitelist attributes
-  # bind JS attributes to ruby ones
   def update
     if @seed.update(seed_params)
       render :show, status: :ok
@@ -68,6 +72,35 @@ class SeedsController < ApplicationController
   end
 
   def seed_params
-    params.require(:seed).permit(:name, :description, :urls, :start_date, :end_date)
+    params.require(:seed).permit(:type, :name, :description, :firstname, :lastname, :email, :telephone, :mobilephone,
+                                 :started_at, :ended_at, urls: [], seeds: [])
+  end
+
+  def build_from_type(seed_type, attrs)
+    case seed_type
+      when 'person'
+        Person.new(attrs)
+      when 'organization'
+        Organization.new(attrs)
+      when 'competence'
+        Competence.new(attrs)
+      when 'event'
+        Event.new(attrs)
+      when 'project'
+        Project.new(attrs)
+      when 'action'
+        Task.new(attrs)
+      when 'creativework'
+        CreativeWork.new(attrs)
+      when 'product'
+        Product.new(attrs)
+      when 'idea'
+        Idea.new(attrs)
+      when 'concept'
+        Concept.new(attrs)
+      when 'schema'
+        Schema.new(attrs)
+      else
+    end
   end
 end

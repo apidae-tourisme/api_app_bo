@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = 'http://localhost:8100'
+    headers['Access-Control-Allow-Origin'] = Rails.application.config.client_origin
     headers['Access-Control-Allow-Credentials'] = 'true'
     headers['Access-Control-Allow-Methods'] = 'GET, PUT, POST, DELETE, OPTIONS, PATCH'
     headers['Access-Control-Allow-Headers'] =

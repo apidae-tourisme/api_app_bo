@@ -36,9 +36,6 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  # CORS allowed origin
-  config.client_origin = 'http://localhost:8100'
-
   # Apidae config
   config.apidae_config = {
       :base_url => 'http://api.apidae-tourisme.com/api/v002',

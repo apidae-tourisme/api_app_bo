@@ -16,7 +16,8 @@ class ApplicationController < ActionController::Base
   private
 
   def set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Origin'] = 'http://localhost:8100'
+    headers['Access-Control-Allow-Credentials'] = 'true'
     headers['Access-Control-Allow-Methods'] = 'GET, PUT, POST, DELETE, OPTIONS, PATCH'
     headers['Access-Control-Allow-Headers'] =
         'Origin, X-Requested-With, Content-Type, Accept, If-Modified-Since, Expiry, Access-Token, Client, Token-Type, Uid'

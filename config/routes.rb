@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get 'details', on: :member
       get 'search', on: :collection
     end
+    resources :pictures, only: [:show, :create]
   end
 
   resources :events

@@ -7,6 +7,7 @@ gem 'font-awesome-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails'
+gem 'paperclip', '4.3.5'
 
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'

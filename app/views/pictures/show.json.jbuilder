@@ -1,3 +1,3 @@
 json.picture do
-  json.thumbnail @picture.img.url(:thumb)
+  json.thumbnail image_url(@picture.img.url(:thumb))
 end

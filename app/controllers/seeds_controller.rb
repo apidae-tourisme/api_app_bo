@@ -72,8 +72,8 @@ class SeedsController < ApplicationController
   end
 
   def seed_params
-    params.require(:seed).permit(:type, :name, :description, :firstname, :lastname, :email, :telephone, :mobilephone,
-                                 :started_at, :ended_at, urls: [], seeds: [])
+    params.require(:seed).permit(:type, :name, :description, :thumbnail, :firstname, :lastname, :email, :telephone,
+                                 :mobilephone, :started_at, :ended_at, urls: [], seeds: [])
   end
 
   def build_from_type(seed_type, attrs)

@@ -35,7 +35,7 @@ module SeedEntity
     end
 
     def label
-      self.class.to_s
+      self.is_a?(Task) ? 'Action' : self.class.to_s
     end
 
     def seeds

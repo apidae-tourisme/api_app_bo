@@ -6,7 +6,8 @@ class SeedsController < ApplicationController
   DEFAULT_NODE = 'default'
 
   def index
-    @seeds = Neo4j::Session.current.query.match(:n).order(n: {updated_at: :desc}).return(:n).collect {|res| res.n}
+    @seeds = Neo4j::Session.current.query.
+        match(:n).where_not('n.name' => nil).order(n: {updated_at: :desc}).return(:n).collect {|res| res.n}
   end
 
   def show

@@ -2,6 +2,7 @@ class SeedsController < ApplicationController
 
   before_action :set_user
   before_action :set_seed, only: [:show, :edit, :update, :details]
+  before_action :set_seed_context, only: [:show]
 
   DEFAULT_NODE = 'default'
 
@@ -11,16 +12,6 @@ class SeedsController < ApplicationController
   end
 
   def show
-    @seeds = []
-    @links = []
-    if @seed
-      @seeds << @seed
-      linked_nodes = @seed.connected_seeds
-      linked_nodes.each do |nd|
-        @seeds << nd
-        @links << {source: nd.id, target: @seed.id}
-      end
-    end
   end
 
   def create
@@ -28,7 +19,7 @@ class SeedsController < ApplicationController
     unless input_params[:type].blank?
       @seed = build_from_type(input_params[:type], input_params.except(:type))
       if @seed.save
-        render :show, status: :ok
+        render :create, status: :ok
       else
         render json: @seed.errors, status: :unprocessable_entity
       end
@@ -40,7 +31,8 @@ class SeedsController < ApplicationController
 
   def update
     if @seed.update(seed_params)
-      render :show, status: :ok
+      set_seed_context
+      render :update, status: :ok
     else
       render json: @seed.errors, status: :unprocessable_entity
     end
@@ -72,9 +64,22 @@ class SeedsController < ApplicationController
     @seed.author = @user.email unless @user.nil?
   end
 
+  def set_seed_context
+    @seeds = []
+    @links = []
+    if @seed
+      @seeds << @seed
+      linked_nodes = @seed.connected_seeds
+      linked_nodes.each do |nd|
+        @seeds << nd
+        @links << {source: nd.id, target: @seed.id}
+      end
+    end
+  end
+
   def seed_params
-    params.require(:seed).permit(:type, :name, :description, :thumbnail, :firstname, :lastname, :email, :telephone,
-                                 :mobilephone, :started_at, :ended_at, urls: [], seeds: [])
+    params.require(:seed).permit(:type, :name, :description, :thumbnail, :firstname, :lastname, :telephone,
+                                 :mobilephone, :started_at, :ended_at, :scope, urls: [], seeds: [])
   end
 
   def build_from_type(seed_type, attrs)

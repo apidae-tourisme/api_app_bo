@@ -3,6 +3,9 @@ module SeedEntity
 
   include Neo4j::ActiveNode
 
+  SCOPE_PRIVATE = 'private'
+  SCOPE_PUBLIC = 'public'
+
   included do
     property :created_at, type: Integer
     property :updated_at, type: Integer
@@ -15,6 +18,7 @@ module SeedEntity
     property :longitude, type: BigDecimal
     property :start_date, type: Integer
     property :end_date, type: Integer
+    property :scope, type: String
     property :urls
     property :history
 

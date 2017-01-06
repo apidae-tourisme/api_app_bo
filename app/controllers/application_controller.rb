@@ -7,11 +7,16 @@ class ApplicationController < ActionController::Base
     head(:ok) if request.request_method == 'OPTIONS'
   end
 
-  def find_node(node_id)
-    Neo4j::Session.current.query.match(n: {uuid: node_id}).return(:n).first ||
-        Neo4j::Session.current.query.match(n: {uid: node_id.to_s}).return(:n).first
+  def find_node(node_id, author)
+    Neo4j::Session.current.query.match(:n)
+        .where("(n.uuid = {uuid} OR n.uid = {uid} OR n.reference = {ref}) AND (n.scope = {public} OR n.scope IS NULL OR (n.scope = {private} AND n.last_contributor = {author}))")
+        .params(uuid: node_id, uid: node_id, ref: node_id, author: author, public: SeedEntity::SCOPE_PUBLIC, private: SeedEntity::SCOPE_PRIVATE)
+        .return(:n).first
   end
 
+  def default_node
+    Neo4j::Session.current.query.match(n: {reference: 'Apidae'}).return(:n).first
+  end
 
   private
 
@@ -24,3 +29,7 @@ class ApplicationController < ActionController::Base
     headers['Access-Control-Expose-Headers'] = 'Expiry, Access-Token, Client, Token-Type, Uid'
   end
 end
+
+# Todo : test seeds visibility
+# production setup (jruby ?)
+# db export

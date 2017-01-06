@@ -9,7 +9,7 @@ module SeedEntity
   included do
     property :created_at, type: Integer
     property :updated_at, type: Integer
-    property :reference, type: String
+    property :reference, type: String, index: :exact
     property :name, type: String
     property :description, type: String
     property :thumbnail, type: String
@@ -18,7 +18,8 @@ module SeedEntity
     property :longitude, type: BigDecimal
     property :start_date, type: Integer
     property :end_date, type: Integer
-    property :scope, type: String
+    property :scope, type: String, index: :exact
+    property :last_contributor, type: String
     property :urls
     property :history
 
@@ -29,13 +30,18 @@ module SeedEntity
 
     before_create :set_creation_timestamp
     before_save :set_update_timestamp
-    before_save :log_update
+
+    def visible_seeds(user)
+      connected_seeds(:n)
+          .where("n.scope = {public} OR n.scope IS NULL OR (n.scope = {private} AND n.last_contributor = {author})")
+          .params({public: SeedEntity::SCOPE_PUBLIC, private: SeedEntity::SCOPE_PRIVATE, author: user.email})
+    end
 
     def visible_fields
       attributes.
           except('provider', 'tokens', 'current_sign_in_at', 'current_sign_in_ip', 'last_sign_in_at', 'last_sign_in_ip',
                  'sign_in_count', 'encrypted_password', 'history').
-          merge({'label' => label, 'id' => id, 'urls' => urls})
+          merge({'label' => label, 'id' => id, 'urls' => urls, 'last_contributor' => last_contributor})
     end
 
     def label
@@ -82,14 +88,10 @@ module SeedEntity
       self.end_date = val.nil? ? nil : Time.parse(val).to_i
     end
 
-    def author=(val)
-      @author = val
-    end
-
-    def log_update
-      self.history ||= {}
-      self.history[:entries] ||= []
-      self.history[:entries] << {author: @author, timestamp: Time.current.to_i, changes: self.changes.except(:history)}
+    def log_entry(user)
+      self.history ||= []
+      self.history += [{'author' => user, 'timestamp' => Time.current.to_i, 'changes' => self.changes.except(:history)}]
+      self.last_contributor = self.history.sort_by {|h| h['timestamp']}.last['author'] unless self.history.blank?
     end
   end
 end

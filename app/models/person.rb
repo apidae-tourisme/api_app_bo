@@ -16,7 +16,7 @@ class Person
 
   # Auth-related properties
   property :provider, type: String
-  property :uid, type: String
+  property :uid, type: String, index: :exact
   property :tokens, default: '{}'
   property :current_sign_in_at, type: DateTime
   property :current_sign_in_ip, type: String
@@ -26,13 +26,6 @@ class Person
   property :encrypted_password, type: String
 
   serialize :tokens
-
-  # has_many :out, :organizations, type: :employed_by
-  # has_many :out, :projects, type: :involved_in
-  # has_many :out, :competences, type: :skilled_for
-  # has_many :out, :products, type: :works_on
-  # has_many :out, :concepts, type: :concepts
-  # has_many :out, :ideas, origin: :initiator
 
   def name
     "#{self.firstname} #{self.lastname}"

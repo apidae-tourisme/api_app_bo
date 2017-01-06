@@ -7,8 +7,9 @@ class SeedsController < ApplicationController
   DEFAULT_NODE = 'default'
 
   def index
-    @seeds = Neo4j::Session.current.query.
-        match(:n).where_not('n.name' => nil).order(n: {updated_at: :desc}).return(:n).collect {|res| res.n}
+    @seeds = Neo4j::Session.current.query.match(:n).where("n.name IS NOT NULL")
+                 .where("n.scope = 'public' OR n.scope IS NULL OR (n.scope = 'private' AND n.last_contributor = {author})")
+                 .params(author: @user.email).pluck(:n)
   end
 
   def show
@@ -18,6 +19,7 @@ class SeedsController < ApplicationController
     input_params = seed_params
     unless input_params[:type].blank?
       @seed = build_from_type(input_params[:type], input_params.except(:type))
+      @seed.log_entry(@user.email)
       if @seed.save
         render :create, status: :ok
       else
@@ -30,8 +32,9 @@ class SeedsController < ApplicationController
   end
 
   def update
-    if @seed.update(seed_params)
-      set_seed_context
+    @seed.attributes = seed_params
+    @seed.log_entry(@user.email)
+    if @seed.save
       render :update, status: :ok
     else
       render json: @seed.errors, status: :unprocessable_entity
@@ -56,12 +59,11 @@ class SeedsController < ApplicationController
 
   def set_seed
     if params[:id] == DEFAULT_NODE
-      node_entry = Neo4j::Session.current.query.match(n: {reference: 'Apidae'}).return(:n).first
-    else
-      node_entry = find_node(params[:id])
+      node_entry = default_node
+    elsif @user
+      node_entry = find_node(params[:id], @user.email)
     end
     @seed = node_entry.n unless node_entry.nil?
-    @seed.author = @user.email unless @user.nil?
   end
 
   def set_seed_context
@@ -69,7 +71,7 @@ class SeedsController < ApplicationController
     @links = []
     if @seed
       @seeds << @seed
-      linked_nodes = @seed.connected_seeds
+      linked_nodes = @user ? @seed.visible_seeds(@user) : []
       linked_nodes.each do |nd|
         @seeds << nd
         @links << {source: nd.id, target: @seed.id}
@@ -78,7 +80,7 @@ class SeedsController < ApplicationController
   end
 
   def seed_params
-    params.require(:seed).permit(:type, :name, :description, :thumbnail, :firstname, :lastname, :telephone,
+    params.require(:seed).permit(:type, :name, :author, :description, :thumbnail, :firstname, :lastname, :telephone,
                                  :mobilephone, :started_at, :ended_at, :scope, urls: [], seeds: [])
   end
 

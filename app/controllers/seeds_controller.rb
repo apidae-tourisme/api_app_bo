@@ -7,9 +7,14 @@ class SeedsController < ApplicationController
   DEFAULT_NODE = 'default'
 
   def index
-    @seeds = Neo4j::Session.current.query.match(:n).where("n.name IS NOT NULL")
-                 .where("n.scope = 'public' OR n.scope IS NULL OR (n.scope = 'private' AND n.last_contributor = {author})")
-                 .params(author: @user.email).pluck(:n)
+    @seeds = []
+    unless params[:query].blank?
+      @seeds = Neo4j::Session.current.query.match(:n).where("n.name IS NOT NULL")
+                   .where("n.scope = 'public' OR n.scope IS NULL OR (n.scope = 'private' AND n.last_contributor = {author})")
+                   .where("n.name =~ {pattern}")
+                   .params(author: @user.email, pattern: "(?i).*#{params[:query]}.*")
+                   .pluck(:n)
+    end
   end
 
   def show
@@ -58,6 +63,7 @@ class SeedsController < ApplicationController
   end
 
   def set_seed
+    node_entry = nil
     if params[:id] == DEFAULT_NODE
       node_entry = default_node
     elsif @user

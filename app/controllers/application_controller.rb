@@ -29,7 +29,3 @@ class ApplicationController < ActionController::Base
     headers['Access-Control-Expose-Headers'] = 'Expiry, Access-Token, Client, Token-Type, Uid'
   end
 end
-
-# Todo : test seeds visibility
-# production setup (jruby ?)
-# db export

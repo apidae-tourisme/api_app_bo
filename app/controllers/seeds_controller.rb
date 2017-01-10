@@ -10,6 +10,7 @@ class SeedsController < ApplicationController
     @seeds = []
     unless params[:query].blank?
       @seeds = Neo4j::Session.current.query.match(:n).where("n.name IS NOT NULL")
+                   .where("n.archived IS NULL OR n.archived <> TRUE")
                    .where("n.scope = 'public' OR n.scope IS NULL OR (n.scope = 'private' AND n.last_contributor = {author})")
                    .where("n.name =~ {pattern}")
                    .params(author: @user.email, pattern: "(?i).*#{params[:query]}.*")
@@ -87,7 +88,7 @@ class SeedsController < ApplicationController
 
   def seed_params
     params.require(:seed).permit(:type, :name, :author, :description, :thumbnail, :firstname, :lastname, :telephone,
-                                 :mobilephone, :started_at, :ended_at, :scope, urls: [], seeds: [])
+                                 :mobilephone, :started_at, :ended_at, :archived, :scope, urls: [], seeds: [])
   end
 
   def build_from_type(seed_type, attrs)

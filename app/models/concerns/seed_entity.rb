@@ -18,6 +18,7 @@ module SeedEntity
     property :longitude, type: BigDecimal
     property :start_date, type: Integer
     property :end_date, type: Integer
+    property :archived, index: :exact
     property :scope, type: String, index: :exact
     property :last_contributor, type: String
     property :urls
@@ -33,6 +34,7 @@ module SeedEntity
 
     def visible_seeds(user)
       connected_seeds(:n)
+          .where("n.archived IS NULL OR n.archived <> TRUE")
           .where("n.scope = {public} OR n.scope IS NULL OR (n.scope = {private} AND n.last_contributor = {author})")
           .params({public: SeedEntity::SCOPE_PUBLIC, private: SeedEntity::SCOPE_PRIVATE, author: user.email})
     end

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resources :pictures, only: [:show, :create]
   end
 
+  devise_for :admins, path: 'administration', path_names: {sign_in: 'connexion', sign_out: 'deconnexion'}
+
   resources :events
   resources :tasks, path: 'actions'
   resources :ideas

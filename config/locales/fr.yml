@@ -3,10 +3,12 @@ fields: &fields
   description: "Description"
   thumbnail: "Illustration"
   url: "URL"
+  address: "Adresse"
   latitude: "Latitude"
   longitude: "Longitude"
   start_date: "Début"
   end_date: "Fin"
+  urls: "Liens"
 
 fr:
   seeds:
@@ -68,6 +70,7 @@ fr:
         email: "Email"
         telephone: "Ligne fixe"
         mobilephone: "Portable"
+        active: "Compte actif"
       product:
         <<: *fields
       project:
@@ -76,6 +79,9 @@ fr:
         <<: *fields
       task:
         <<: *fields
+      admin:
+        email: Email
+        password: Mot de passe
   date:
     abbr_day_names:
        - Dim

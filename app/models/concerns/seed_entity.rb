@@ -14,6 +14,7 @@ module SeedEntity
     property :description, type: String
     property :thumbnail, type: String
     property :url, type: String
+    property :address, type: String
     property :latitude, type: BigDecimal
     property :longitude, type: BigDecimal
     property :start_date, type: Integer
@@ -26,6 +27,9 @@ module SeedEntity
 
     serialize :urls
     serialize :history
+
+    # Todo : handle properly seed archived : disconnect from other nodes ?
+    # Todo : generate a square thumbnail -> round corners in ImageMagick
 
     has_many :both, :connected_seeds, type: false, model_class: false
 

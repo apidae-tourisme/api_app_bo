@@ -1,6 +1,8 @@
 class SeedController < ApplicationController
   include SeedFormConcern
 
+  before_filter :authenticate_admin!
+
   before_action :set_seed_class
   before_action :set_seed, only: [:show, :edit, :update, :destroy]
 

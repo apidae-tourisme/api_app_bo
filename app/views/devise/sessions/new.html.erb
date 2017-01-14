@@ -1,0 +1,26 @@
+<div class="text-center">
+  <%= image_tag 'logo-apiapp.svg', id: 'login_logo' %>
+</div>
+<div id="login" class="panel panel-primary center-block">
+  <div class="panel-heading text-center">
+    <h4>Authentification</h4>
+  </div>
+
+  <div class="panel-body text-center">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'form-vertical'}) do |f| %>
+        <div class="field">
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+        </div>
+        <br/>
+        <div class="field">
+          <%= f.label :password %>
+          <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+        </div>
+        <br/>
+        <div class="actions">
+          <%= f.submit 'Connexion', class: 'btn btn-lg btn-primary' %>
+        </div>
+    <% end %>
+  </div>
+</div>

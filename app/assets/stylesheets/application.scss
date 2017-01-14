@@ -1,8 +1,11 @@
-$brand-primary:         #6eb1c6 !default;
+$brand-primary:         #5db0c7 !default;
 $brand-success:         #bfce81 !default;
 $brand-info:            #86c7e8 !default;
 $brand-warning:         #edc141 !default;
 $brand-danger:          #d67c7d !default;
+
+$navbar-inverse-bg: #282828;
+$navbar-inverse-border: #282828;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -16,6 +19,16 @@ $brand-danger:          #d67c7d !default;
 body {
   padding-top: 70px;
   padding-bottom: 30px;
+}
+
+.mts {
+  margin-top: 10px;
+}
+
+#login_logo, #login {
+  width: 60%;
+  max-width: 320px;
+  margin-bottom: 20px;
 }
 
 form input[type=number][id$='_at'],
@@ -34,6 +47,11 @@ form .row {
 
 form #nodes_select, form input[type=text] {
   width: 100%;
+}
+
+#navbar a.navbar-right {
+  font-size: 1.4em;
+  padding-right: 30px;
 }
 
 #dashboard a.btn {

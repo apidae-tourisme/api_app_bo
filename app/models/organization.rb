@@ -1,7 +1,6 @@
 class Organization 
   include SeedEntity
 
-  property :address, type: String
   property :email, type: String
   property :telephone, type: String
 

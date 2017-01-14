@@ -1,0 +1,8 @@
+<div class="seed_url">
+  <div class="col-sm-3 mts"></div>
+  <div class="col-sm-8 mts"><%= text_field_tag "#{object_name}[urls][]", url %></div>
+  <div class="col-sm-1 mts">
+    <%= button_tag '<i class="fa fa-remove"></i>'.html_safe, type: 'button', class: 'remove_url btn btn-sm btn-danger',
+                   onclick: 'removeUrl(this)' %>
+  </div>
+</div>

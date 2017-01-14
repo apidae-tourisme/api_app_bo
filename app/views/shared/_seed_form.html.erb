@@ -21,6 +21,11 @@
             <div class="col-sm-3 text-right"><%= f.label :end_date %></div>
             <div class="col-sm-3"><%= f.datetime_select :ended_at, {}, class: 'form-control' %></div>
           </fieldset>
+        <% elsif field == :active %>
+          <fieldset class="row">
+            <div class="col-sm-3 text-right"><%= f.label :active %></div>
+            <div class="col-sm-3"><%= f.check_box :active, {}, true, false %></div>
+          </fieldset>
         <% else %>
           <fieldset class="row">
             <div class="col-sm-3 text-right"><%= f.label field %></div>
@@ -28,6 +33,14 @@
           </fieldset>
         <% end %>
     <% end %>
+
+    <fieldset class="row">
+      <div class="col-sm-3 text-right"><%= f.label 'Liens' %></div>
+      <div class="col-sm-9"><%= button_tag 'Ajouter un lien', type: 'button', id: 'add_url', class: 'btn btn-sm btn-primary' %></div>
+      <% (f.object.urls || []).each do |u| %>
+          <%= render 'shared/url_form', object_name: @seed.class.to_s.underscore, url: u %>
+      <% end %>
+    </fieldset>
 
     <fieldset class="row">
       <div class="col-sm-3 text-right"><%= f.label 'Graines liées' %></div>
@@ -81,4 +94,12 @@
       clear: 'fa fa-trash'
     }
   });
+
+  $("#add_url").click(function() {
+    $(this).parents("fieldset.row").append("<%= j(render 'shared/url_form', object_name: @seed.class.to_s.underscore, url: 'http://') %>");
+  });
+
+  function removeUrl(btn) {
+    $(btn).parents("div.seed_url").remove();
+  }
 </script>

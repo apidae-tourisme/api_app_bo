@@ -53,7 +53,7 @@ module DeviseTokenAuth
       @auth_params = {
           auth_token:     @token,
           client_id: @client_id,
-          uid:       (@resource.active ? @resource.uid : nil),
+          uid:       ((@resource.active && @resource.active > 0) ? @resource.uid : nil),
           expiry:    @expiry,
           config:    @config
       }

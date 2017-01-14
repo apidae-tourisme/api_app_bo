@@ -10,7 +10,7 @@ class Person
   property :email, type: String
   property :telephone, type: String
   property :mobilephone, type: String
-  property :active
+  property :active, type: Integer
 
   # include OAuth concern after Neo4j properties to avoid a name conflict on 'email' property
   include UserConcern

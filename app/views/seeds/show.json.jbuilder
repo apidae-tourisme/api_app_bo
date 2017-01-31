@@ -4,6 +4,8 @@ json.nodes do
     if i == 0
       json.merge! seed.visible_fields
       json.is_root true
+      json.author @author.name if @author
+      json.author_id @author.uid if @author
       i += 1
     else
       json.partial! partial: 'seed', locals: {seed: seed}

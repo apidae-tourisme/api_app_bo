@@ -12,13 +12,16 @@ class SeedsController < ApplicationController
       @seeds = Neo4j::Session.current.query.match(:n).where("n.name IS NOT NULL")
                    .where("n.archived IS NULL OR n.archived <> TRUE")
                    .where("n.scope = 'public' OR n.scope IS NULL OR (n.scope = 'private' AND n.last_contributor = {author})")
-                   .where("n.name =~ {pattern}")
+                   .where("n.name =~ {pattern} OR n.description =~ {pattern}")
                    .params(author: @user.email, pattern: "(?i).*#{params[:query]}.*")
                    .pluck(:n)
     end
   end
 
   def show
+    if @seed && !@seed.last_contributor.blank?
+      @author = Person.where(email: @seed.last_contributor).first
+    end
   end
 
   def create

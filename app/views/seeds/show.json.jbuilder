@@ -18,3 +18,4 @@ json.links do
     json.extract! l, :source, :target
   end
 end
+json.count @seeds_count

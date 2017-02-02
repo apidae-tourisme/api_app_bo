@@ -9,12 +9,7 @@ class SeedsController < ApplicationController
   def index
     @seeds = []
     unless params[:query].blank?
-      @seeds = Neo4j::Session.current.query.match(:n).where("n.name IS NOT NULL")
-                   .where("n.archived IS NULL OR n.archived <> TRUE")
-                   .where("n.scope = 'public' OR n.scope IS NULL OR (n.scope = 'private' AND n.last_contributor = {author})")
-                   .where("n.name =~ {pattern} OR n.description =~ {pattern}")
-                   .params(author: @user.email, pattern: "(?i).*#{params[:query]}.*")
-                   .pluck(:n)
+      @seeds = SeedEntity.matching(params[:query], @user)
     end
   end
 
@@ -22,6 +17,7 @@ class SeedsController < ApplicationController
     if @seed && !@seed.last_contributor.blank?
       @author = Person.where(email: @seed.last_contributor).first
     end
+    @seeds_count = Neo4j::Session.current.query.match(:n).where("n.name IS NOT NULL").where("n.archived IS NULL OR n.archived <> TRUE").count
   end
 
   def create

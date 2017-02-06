@@ -144,7 +144,7 @@ module SeedEntity
         'Person'
       when /^equipes?/
         'Organization'
-      when /^role?/
+      when /^roles?/
         'Competence'
       when /^rencontres?/
         'Event'
@@ -160,7 +160,7 @@ module SeedEntity
         'Idea'
       when /^etiquettes?/
         'Concept'
-      when /^schema?/
+      when /^schemas?/
         'Schema'
       else
         nil

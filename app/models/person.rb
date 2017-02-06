@@ -31,4 +31,5 @@ class Person
   def name
     "#{self.firstname} #{self.lastname}"
   end
+
 end

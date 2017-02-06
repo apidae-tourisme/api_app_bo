@@ -42,5 +42,20 @@ module ApiAppBo
 
     # Allow empty arrays as params
     config.action_dispatch.perform_deep_munge = false
+
+    # Mailer config
+    config.action_mailer.smtp_settings = {
+        address: 'smtp-apiapp.alwaysdata.net',
+        port: 587,
+        domain: 'apiapp.alwaysdata.net',
+        user_name: 'apiapp@alwaysdata.net',
+        password: 'apiapp_smtp',
+        authentication: 'plain',
+        enable_starttls_auto: true
+    }
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.raise_delivery_errors = true
+
+    config.support_email = ''
   end
 end

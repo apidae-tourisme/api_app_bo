@@ -50,8 +50,12 @@ module DeviseTokenAuth
 
     # Overridden to limit access in early test phases
     def create_auth_params
+      active_user = @resource.active && @resource.active > 0
+      unless active_user
+        NotificationMailer.new_user(@resource).deliver_now
+      end
       @auth_params = {
-          auth_token:     @token,
+          auth_token: active_user ? @token : nil,
           client_id: @client_id,
           uid:       ((@resource.active && @resource.active > 0) ? @resource.uid : nil),
           expiry:    @expiry,

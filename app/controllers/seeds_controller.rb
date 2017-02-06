@@ -40,7 +40,7 @@ class SeedsController < ApplicationController
     current_label = @seed.class.to_s
     new_label = seed_params[:type] == 'action' ? 'Task' : seed_params[:type].camelcase
     if new_label != current_label
-      log.info("Changing seed #{@seed.uuid} label from #{current_label} to #{new_label}")
+      logger.info("Changing seed #{@seed.uuid} label from #{current_label} to #{new_label}")
       Neo4j::Session.current.query.match(:n).where("n.uuid = {uuid}").params(uuid: @seed.uuid)
           .remove(n: current_label.to_sym).set(n: new_label.to_sym).pluck(:n)
     end

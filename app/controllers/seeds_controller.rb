@@ -111,7 +111,7 @@ class SeedsController < ApplicationController
         Project.new(attrs)
       when 'action'
         Task.new(attrs)
-      when 'creativework'
+      when 'creativeWork'
         CreativeWork.new(attrs)
       when 'product'
         Product.new(attrs)

@@ -121,21 +121,17 @@ module SeedEntity
 
   def self.matching(query, user)
     fields = query.parameterize.split('-')
-    text_fields = []
-    seed_type = nil
-    fields.each do |f|
-      t = to_seed_type(f)
-      if t
-        seed_type = t
-      else
-        text_fields << f
-      end
+
+    q = Neo4j::Session.current.query.match(:n).where("n.name IS NOT NULL").where("n.archived IS NULL OR n.archived <> TRUE")
+            .where("n.scope = 'public' OR n.scope IS NULL OR (n.scope = 'private' AND n.last_contributor = '#{user.email}')")
+    fields.each_with_index do |f, i|
+      pattern_key = "pattern_#{i}"
+      seed_type = to_seed_type(f)
+      label_clause = seed_type ? " OR n:#{seed_type}" : ''
+      q = q.where("n.indexed_name =~ {#{pattern_key}} OR n.indexed_desc =~ {#{pattern_key}}#{label_clause}")
+      q = q.params(pattern_key => "(?i).*\\b#{f}.*")
     end
-    q = Neo4j::Session.current.query.match(seed_type ? {n: seed_type} : :n).where("n.name IS NOT NULL")
-        .where("n.archived IS NULL OR n.archived <> TRUE")
-        .where("n.scope = 'public' OR n.scope IS NULL OR (n.scope = 'private' AND n.last_contributor = {author})")
-    q = q.where("n.indexed_name =~ {pattern} OR n.indexed_desc =~ {pattern}") if text_fields.any?
-    q.params(author: user.email, pattern: "(?i).*(#{text_fields.join('|')}).*").pluck(:n)
+    q.pluck(:n)
   end
 
   def self.to_seed_type(pattern)

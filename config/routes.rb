@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   match '*path', :controller => 'application', :action => 'handle_options_request',
         :constraints => {:method => 'OPTIONS'}, via: [:options]
 
+  get '/inscription', to: redirect('https://docs.google.com/forms/d/11IFBHzM5wUFjBsAVZ5475tpfWT_-96oO2gEdcTttzKQ/prefill')
+
   scope '/api' do
     mount_devise_token_auth_for 'Person', at: 'auth'
     resources :seeds, only: [:index, :show, :create, :edit, :update] do

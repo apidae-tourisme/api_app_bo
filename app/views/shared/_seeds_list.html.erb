@@ -17,6 +17,9 @@
         <% cols.each do |col| %>
           <th><%= t "seeds.properties.#{col}" %></th>
         <% end %>
+        <% if @seeds.length && @seeds.first.class == Person %>
+          <th>Actif</th>
+        <% end %>
         <th></th>
         <th></th>
       </tr>
@@ -27,6 +30,9 @@
         <td><span class="hidden"><%= seed.created_at %></span><%= l(seed.creation_date, format: :detailedbis) %></td>
         <% cols.each do |col| %>
         <td><%= seed.send(col) %></td>
+        <% end %>
+        <% if seed.class == Person %>
+          <td><%= seed.active == 1 ? 'Oui' : 'Non' %></td>
         <% end %>
         <td><%= link_to fa_icon('edit'), send("edit_#{seed.class.to_s.underscore}_path", seed) %></td>
         <td><%= link_to fa_icon('remove'), seed, method: :delete, data: { confirm: 'Supprimer cette graine ?' } %></td>

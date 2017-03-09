@@ -8,6 +8,7 @@ fields: &fields
   longitude: "Longitude"
   start_date: "Début"
   end_date: "Fin"
+  archived: "Archive"
   urls: "Liens"
 
 fr:

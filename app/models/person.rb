@@ -1,4 +1,7 @@
 class Person
+  include Neo4j::ActiveNode
+  before_save :update_name
+
   include SeedEntity
   include Neo4j::Shared::MassAssignment
 
@@ -28,8 +31,7 @@ class Person
 
   serialize :tokens
 
-  def name
-    "#{self.firstname} #{self.lastname}"
+  def update_name
+    self.name = "#{self.firstname} #{self.lastname}"
   end
-
 end

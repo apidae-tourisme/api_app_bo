@@ -21,7 +21,7 @@ module SeedEntity
     property :longitude, type: BigDecimal
     property :start_date, type: Integer
     property :end_date, type: Integer
-    property :archived, index: :exact
+    property :archived, type: Neo4j::Shared::Boolean, index: :exact
     property :scope, type: String, index: :exact
     property :last_contributor, type: String
     property :urls

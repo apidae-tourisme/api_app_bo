@@ -20,6 +20,7 @@
         <% if @seeds.length && @seeds.first.class == Person %>
           <th>Actif</th>
         <% end %>
+        <th>Archive</th>
         <th></th>
         <th></th>
       </tr>
@@ -34,6 +35,7 @@
         <% if seed.class == Person %>
           <td><%= seed.active == 1 ? 'Oui' : 'Non' %></td>
         <% end %>
+        <td><%= seed.archived ? 'Oui' : 'Non' %></td>
         <td><%= link_to fa_icon('edit'), send("edit_#{seed.class.to_s.underscore}_path", seed) %></td>
         <td><%= link_to fa_icon('remove'), seed, method: :delete, data: { confirm: 'Supprimer cette graine ?' } %></td>
       </tr>

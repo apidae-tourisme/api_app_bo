@@ -44,7 +44,9 @@ class SeedsController < ApplicationController
       Neo4j::Session.current.query.match(:n).where("n.uuid = {uuid}").params(uuid: @seed.uuid)
           .remove(n: current_label.to_sym).set(n: new_label.to_sym).pluck(:n)
     end
+    unaffected_seeds = @seed.seeds - @seed.visible_seeds(@user).collect {|s| s.id}
     @seed.attributes = seed_params
+    @seed.seeds = seed_params[:seeds] + unaffected_seeds
     @seed.log_entry(@user.email)
     if @seed.save
       render :update, status: :ok

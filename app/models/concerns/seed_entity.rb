@@ -136,27 +136,27 @@ module SeedEntity
 
   def self.to_seed_type(pattern)
     case pattern
-      when /^acteurs?/
+      when /^acteurs?$/
         'Person'
-      when /^equipes?/
+      when /^equipes?$/
         'Organization'
-      when /^roles?/
+      when /^roles?$/
         'Competence'
-      when /^rencontres?/
+      when /^rencontres?$/
         'Event'
-      when /^chantiers?/
+      when /^chantiers?$/
         'Project'
-      when /^actions?/
+      when /^actions?$/
         'Task'
-      when /^ressources?/
+      when /^ressources?$/
         'CreativeWork'
-      when /^services?/
+      when /^services?$/
         'Product'
-      when /^idees?/
+      when /^idees?$/
         'Idea'
-      when /^etiquettes?/
+      when /^etiquettes?$/
         'Concept'
-      when /^schemas?/
+      when /^schemas?$/
         'Schema'
       else
         nil

@@ -6,6 +6,6 @@ module SeedFormConcern
   end
 
   def generic_fields
-    [:name, :description, :thumbnail, :address, :started_at, :ended_at, :archived]
+    [:name, :description, :thumbnail, :address, :started_at, :ended_at, :archived, :reference]
   end
 end

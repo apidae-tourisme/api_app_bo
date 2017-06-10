@@ -4,7 +4,21 @@ module SeedEntity
   include Neo4j::ActiveNode
 
   SCOPE_PRIVATE = 'private'
+  SCOPE_GROUP = 'group'
+  SCOPE_APIDAE = 'apidae'
   SCOPE_PUBLIC = 'public'
+
+  def self.filter_visible(query, email)
+    query.where("n.archived IS NULL OR n.archived <> TRUE")
+        .where("n.scope = {public} OR n.scope = {network} OR n.scope IS NULL OR (n.scope = {private} AND n.last_contributor = {author})")
+        .params({public: SeedEntity::SCOPE_PUBLIC, network: SeedEntity::SCOPE_APIDAE, private: SeedEntity::SCOPE_PRIVATE,
+                 author: email})
+  end
+
+  def self.filter_public(query)
+    query.where("n.archived IS NULL OR n.archived <> TRUE").where("n.scope = {public} OR n.scope IS NULL")
+        .params({public: SeedEntity::SCOPE_PUBLIC})
+  end
 
   included do
     property :created_at, type: Integer
@@ -44,10 +58,11 @@ module SeedEntity
     before_save :updated_indexed_columns
 
     def visible_seeds(user)
-      connected_seeds(:n)
-          .where("n.archived IS NULL OR n.archived <> TRUE")
-          .where("n.scope = {public} OR n.scope IS NULL OR (n.scope = {private} AND n.last_contributor = {author})")
-          .params({public: SeedEntity::SCOPE_PUBLIC, private: SeedEntity::SCOPE_PRIVATE, author: user.email})
+      if user
+        SeedEntity.filter_visible(connected_seeds(:n), user.email)
+      else
+        SeedEntity.filter_public(connected_seeds(:n))
+      end
     end
 
     def visible_fields
@@ -122,8 +137,7 @@ module SeedEntity
   def self.matching(query, user)
     fields = query.parameterize.split('-')
 
-    q = Neo4j::Session.current.query.match(:n).where("n.name IS NOT NULL").where("n.archived IS NULL OR n.archived <> TRUE")
-            .where("n.scope = 'public' OR n.scope IS NULL OR (n.scope = 'private' AND n.last_contributor = '#{user.email}')")
+    q = filter_visible(Neo4j::Session.current.query.match(:n).where("n.name IS NOT NULL"), user.email)
     fields.each_with_index do |f, i|
       pattern_key = "pattern_#{i}"
       seed_type = to_seed_type(f)

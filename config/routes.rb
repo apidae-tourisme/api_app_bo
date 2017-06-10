@@ -26,5 +26,6 @@ Rails.application.routes.draw do
   resources :projects
   resources :organizations
 
+  get 'import_users', to: 'dashboard#import_users'
   root to: 'dashboard#index'
 end

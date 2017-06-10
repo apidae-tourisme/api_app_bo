@@ -72,11 +72,12 @@ class SeedsController < ApplicationController
   end
 
   def set_seed
-    node_entry = nil
     if params[:id] == DEFAULT_NODE
       node_entry = default_node
     elsif @user
       node_entry = find_node(params[:id], @user.email)
+    else
+      node_entry = find_public_node(params[:id])
     end
     @seed = node_entry.n unless node_entry.nil?
   end

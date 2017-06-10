@@ -14,6 +14,13 @@ class ApplicationController < ActionController::Base
         .return(:n).first
   end
 
+  def find_public_node(node_id)
+    Neo4j::Session.current.query.match(:n)
+        .where("(n.uuid = {uuid} OR n.uid = {uid} OR n.reference = {ref}) AND (n.scope = {public} OR n.scope IS NULL)")
+        .params(uuid: node_id, uid: node_id, ref: node_id, public: SeedEntity::SCOPE_PUBLIC)
+        .return(:n).first
+  end
+
   def default_node
     Neo4j::Session.current.query.match(n: {reference: 'Apidae'}).return(:n).first
   end

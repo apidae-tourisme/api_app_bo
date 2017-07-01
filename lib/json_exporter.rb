@@ -33,10 +33,10 @@ class JsonExporter
         'starts_at' => format_time(seed.start_date),
         'ends_at' => format_time(seed.end_date),
         'archived' => seed.archived,
-        'scope' => seed.scope,
+        'scope' => seed.scope || 'apidae',
         'author' => seed.last_contributor,
         'urls' => seed.urls,
-        'connections' => seed.seeds.collect {|s| s.gsub('-', '')},
+        'connections' => seed.seeds,
         '_attachments' => build_attachment(seed)
     }
     JSON.generate(seed_data)

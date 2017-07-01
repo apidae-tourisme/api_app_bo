@@ -12,9 +12,12 @@ class Picture
   property :img_content_type, type: String
   property :img_file_size,    type: Integer
   property :img_updated_at,   type: DateTime
+  property :seed_id, type: String
+
 
   has_attached_file :img, {
-      styles: lambda {|attachment| attachment.instance.svg? ? {} : {large: '640x640>', medium: '320x320>', thumb: '160x160>'} },
+      styles: lambda {|attachment| attachment.instance.svg? ? {} : {avatar: ['160x160>', :png]} },
+      convert_options: {avatar: '-quality 60 -strip'},
       path: 'public/pictures/:timestamp/:id/:style/:basename.:extension',
       url: '/pictures/:timestamp/:id/:style/:basename.:extension'
   }

@@ -49,7 +49,7 @@ class JsonExporter
         thumb_url = seed.thumbnail.start_with?('http') ? seed.thumbnail : ('http://' + seed.thumbnail)
         pic = Picture.create(img: URI.parse(thumb_url), seed_id: seed.id)
         img_str = Base64.encode64(File.open(pic.img.path(:avatar), 'rb').read)
-        att['img'] = {'content_type' => 'text/plain', 'data' => img_str}
+        att['img'] = {'content_type' => 'image/png', 'data' => img_str}
       rescue Exception => e
         puts "Could not retrieve attached picture #{thumb_url}"
       end

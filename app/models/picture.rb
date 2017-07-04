@@ -18,8 +18,8 @@ class Picture
   has_attached_file :img, {
       styles: lambda {|attachment| attachment.instance.svg? ? {} : {avatar: ['160x160>', :png]} },
       convert_options: {avatar: '-quality 60 -strip'},
-      path: 'public/pictures/:timestamp/:id/:style/:basename.:extension',
-      url: '/pictures/:timestamp/:id/:style/:basename.:extension'
+      path: 'public/migration/:timestamp/:id/:style/:basename.:extension',
+      url: '/migration/:timestamp/:id/:style/:basename.:extension'
   }
   validates_attachment_content_type :img, content_type: ['image/jpeg', 'image/gif', 'image/png', 'image/svg+xml'], size: {in: 0..10.megabytes}
 

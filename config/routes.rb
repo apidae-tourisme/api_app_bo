@@ -4,7 +4,7 @@ Rails.application.routes.draw do
         :constraints => {:method => 'OPTIONS'}, via: [:options]
 
   scope '/api' do
-    mount_devise_token_auth_for 'Person', at: 'auth'
+    # mount_devise_token_auth_for 'Person', at: 'auth'
     resources :seeds, only: [:index, :show, :create, :edit, :update] do
       get 'details', on: :member
       get 'search', on: :collection
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :pictures, only: [:show, :create]
   end
 
-  devise_for :admins, path: 'administration', path_names: {sign_in: 'connexion', sign_out: 'deconnexion'}
+  # devise_for :admins, path: 'administration', path_names: {sign_in: 'connexion', sign_out: 'deconnexion'}
 
   resources :events
   resources :tasks, path: 'actions'

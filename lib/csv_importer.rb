@@ -22,8 +22,6 @@ class CsvImporter
 
     CSV.foreach(ref_file, headers: true, col_sep: ',', encoding: 'UTF-8') do |row|
       refs[row.field('apidae_id')] = row.field('apiapp_id')
-      puts "refs count : #{refs.keys.length}"
-      puts "refs sample : #{refs['73AAOTS100006_struct']}"
     end
 
     # id;lastName;firstName;email;phoneNumber;membre;adresse;codePostal;communeId;communeCode;communeNom;communeCodePostal;nomEntite;idEntite;firstName;gsmNumber;profession;facebook;twitter;nomEntite;presentation;adresse2;bureauDistribution;cedex

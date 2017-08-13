@@ -14,10 +14,10 @@ class CsvImporter
       "Ecoles et centres de formation" => 'b570f999-4414-42c4-817c-2d53c8f58452'
   }
 
-  def self.import_users(db_name, csv_file, ref_file)
+  def self.import_users(host, db_name, csv_file, ref_file)
     refs = {}
 
-    server = CouchRest.new
+    server = CouchRest.new(host)
     db = server.database!(db_name)
 
     CSV.foreach(ref_file, headers: true, col_sep: ',', encoding: 'UTF-8') do |row|
@@ -74,12 +74,12 @@ class CsvImporter
     fields.map {|f| row.field(f)}.select {|f| !f.blank?}
   end
 
-  def self.import_members(db_name, csv_file, ref_file)
+  def self.import_members(host, db_name, csv_file, ref_file)
     refs = {}
 
     SitraClient.configure(Rails.application.config.apidae_config)
 
-    server = CouchRest.new
+    server = CouchRest.new(host)
     db = server.database!(db_name)
 
     CSV.foreach(ref_file, headers: true, col_sep: ',', encoding: 'UTF-8') do |row|

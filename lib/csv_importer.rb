@@ -51,10 +51,10 @@ class CsvImporter
           entity_id = row.field('idEntite')
           unless entity_id.blank? || refs[entity_id].blank?
             puts "entity matched #{refs[entity_id]}"
-            user_seed.connections = [refs[entity_id]]
+            user_seed[:connections] = [refs[entity_id]]
             db.save_doc(user_seed)
             entity_seed = db.get(refs[entity_id])
-            entity_seed.connections << [user_seed['_id']]
+            entity_seed[:connections] << [user_seed['_id']]
             db.save_doc(entity_seed)
           end
         end

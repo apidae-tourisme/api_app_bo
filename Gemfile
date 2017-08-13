@@ -23,3 +23,6 @@ gem 'devise-neo4j'
 gem 'omniauth'
 gem 'omniauth-oauth2', '~> 1.3.1'
 gem 'devise_token_auth'
+
+gem 'sitra_client'
+gem 'couchrest'

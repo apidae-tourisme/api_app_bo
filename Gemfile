@@ -17,6 +17,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'select2-rails'
 gem 'jquery-datatables-rails', '~> 3.4.0'
+gem 'json', '1.8.6'
 
 gem 'neo4j', '~> 7.1.0'
 gem 'devise-neo4j'

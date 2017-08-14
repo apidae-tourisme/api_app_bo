@@ -52,7 +52,7 @@ class CsvImporter
             user_seed[:connections] = [refs[entity_id]]
             db.save_doc(user_seed)
             entity_seed = db.get(refs[entity_id])
-            entity_seed[:connections] << [user_seed['_id']]
+            entity_seed[:connections] << user_seed['_id']
             db.save_doc(entity_seed)
           end
         end
@@ -104,12 +104,18 @@ class CsvImporter
                 created_at: Time.current.utc.strftime('%FT%H:%M:%SZ'),
                 updated_at: Time.current.utc.strftime('%FT%H:%M:%SZ'),
                 scope: 'apidae',
-                connections: CATEGORIES.has_key?(row.field('secteurNom')) ? [CATEGORIES[row.field('secteurNom')]] : [],
+                connections: [],
                 urls: contact_entries.collect {|c| c[:coordonnees][:fr]}
             }
             result = db.save_doc(member_seed)
             if result['ok']
+              puts "member saved - adding connections"
               refs[entity_id] = member_seed['_id']
+              member_seed[:connections] = [CATEGORIES[row.field('secteurNom')]] if CATEGORIES.has_key?(row.field('secteurNom'))
+              db.save_doc(member_seed)
+              tag_seed = db.get(CATEGORIES[row.field('secteurNom')])
+              tag_seed[:connections] << member_seed['_id']
+              db.save_doc(tag_seed)
             end
           end
         else

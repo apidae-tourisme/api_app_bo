@@ -110,12 +110,15 @@ class CsvImporter
             result = db.save_doc(member_seed)
             if result['ok']
               puts "member saved - adding connections"
-              refs[entity_id] = member_seed['_id']
-              member_seed[:connections] = [CATEGORIES[row.field('secteurNom')]] if CATEGORIES.has_key?(row.field('secteurNom'))
-              db.save_doc(member_seed)
-              tag_seed = db.get(CATEGORIES[row.field('secteurNom')])
-              tag_seed[:connections] << member_seed['_id']
-              db.save_doc(tag_seed)
+              tag_name = row.field('secteurNom')
+              unless tag_name.blank? || !CATEGORIES.has_key?(tag_name)
+                refs[entity_id] = member_seed['_id']
+                member_seed[:connections] = [CATEGORIES[tag_name]]
+                db.save_doc(member_seed)
+                tag_seed = db.get(CATEGORIES[tag_name])
+                tag_seed[:connections] << member_seed['_id']
+                db.save_doc(tag_seed)
+              end
             end
           end
         else

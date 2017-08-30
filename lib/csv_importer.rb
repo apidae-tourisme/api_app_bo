@@ -69,7 +69,24 @@ class CsvImporter
   end
 
   def self.fields_values(row, *fields)
-    fields.map {|f| row.field(f)}.select {|f| !f.blank?}
+    fields.map {|f| format_value(f, row.field(f))}.select {|f| !f.blank?}
+  end
+
+  def self.format_value(field, val)
+    unless val.blank?
+      case field
+        when 'phoneNumber', 'gsmNumber'
+          new_val = val.gsub('(0)', '').gsub('.', '').gsub(/\s/, '')
+          if /^\+?\d{7,}$/.match(new_val)
+            new_val = new_val.gsub('+', '00')
+            new_val.start_with?('0') ? new_val : ('0' + new_val)
+          else
+            new_val
+          end
+        else
+          val
+      end
+    end
   end
 
   def self.import_members(host, db_name, csv_file, ref_file)
@@ -122,6 +139,9 @@ class CsvImporter
             end
           end
         else
+          if existing['rows'].any? && existing['rows'][0]['id']
+            refs[entity_id] = existing['rows'][0]['id']
+          end
           puts "skipping existing member #{row.field('nom')}"
         end
       end

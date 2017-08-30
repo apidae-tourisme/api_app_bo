@@ -26,7 +26,7 @@ class CsvImporter
 
     # id;lastName;firstName;email;phoneNumber;membre;adresse;codePostal;communeId;communeCode;communeNom;communeCodePostal;nomEntite;idEntite;firstName;gsmNumber;profession;facebook;twitter;nomEntite;presentation;adresse2;bureauDistribution;cedex
     CSV.foreach(csv_file, headers: true, col_sep: ';', encoding: 'UTF-8') do |row|
-      existing = db.view 'search/by-email', {}, keys: [row.field('email')]
+      existing = db.view 'search/by-email', {}, keys: [row.field('email').downcase]
       puts "existing : #{existing}"
       if !existing || existing['rows'].blank?
         puts "inserting new user seed #{row.field('email')}"

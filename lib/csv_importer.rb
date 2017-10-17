@@ -125,18 +125,9 @@ class CsvImporter
                 urls: contact_entries.collect {|c| c[:coordonnees][:fr]}
             }
             result = db.save_doc(member_seed)
-            # if result['ok']
-            #   puts "member saved - adding connections"
-            #   tag_name = row.field('secteurNom')
-            #   unless tag_name.blank? || !CATEGORIES.has_key?(tag_name)
-            #     refs[entity_id] = member_seed['_id']
-            #     member_seed[:connections] = [CATEGORIES[tag_name]]
-            #     db.save_doc(member_seed)
-            #     tag_seed = db.get(CATEGORIES[tag_name])
-            #     tag_seed[:connections] << member_seed['_id']
-            #     db.save_doc(tag_seed)
-            #   end
-            # end
+            if result['ok']
+              refs[entity_id] = member_seed['_id']
+            end
           end
         else
           if existing['rows'].any? && existing['rows'][0]['id']
